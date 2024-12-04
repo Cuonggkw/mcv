@@ -1,0 +1,119 @@
+@import 
+	'../../../core/components/dropdown';
+
+#nl-header{
+	width: 100%;
+	max-width: 100%;
+	background-color: transparent;
+	@include box-shadow(inherit);
+
+	.MuiToolbar-root{
+		width: 100%;
+		flex: 0 0 100%;
+		min-height: auto;
+	}
+
+	@include media-breakpoint-up(lg){
+		#nl-header__mastehead{
+			height: $header-height-pc;
+			padding: $header-padding;
+			width: 100%;
+			flex: 0 0 100%;
+			overflow: hidden;
+			.d-flex{
+				height: 100%;
+				align-items: center;
+
+				.logo{
+					margin-top: 40px;
+
+					img{
+						max-height: 80px;
+						width: auto;
+					}
+				}
+			}
+		}
+	}
+
+	@include media-breakpoint-only(lg){
+		#nl-header__mastehead{
+			padding: 0 30px;
+		}
+		
+	}
+
+	@include media-breakpoint-down(lg){
+
+		#nl-header__mastehead{
+			height: $header-height-mb;
+			padding: 0 30px;
+			width: 100%;
+			flex: 0 0 100%;
+
+			.d-flex{
+				height: 100%;
+				align-items: center;
+
+				.logo{
+					margin-right: 50px;
+
+					img{
+						max-height: 27px;
+						width: auto;
+					}
+				}
+			}
+		}
+	}
+
+	@include media-breakpoint-down(sm){
+		#nl-header__mastehead{
+			padding: 0 15px;
+
+			.logo{
+				margin-right: 0;
+			}
+		}
+	}
+
+	#nl-header__mastehead{
+		background-color: $header-background;
+		transition:background-color .4s;
+		@include box-shadow($header-shadow);
+
+		@include media-breakpoint-up(md){
+			&.transparent{
+				background-image: linear-gradient(to bottom,rgba(0,0,0,.8) 10%,rgba(0,0,0,0.08));
+				box-shadow: inherit;
+				-webkit-box-shadow: inherit;
+				-moz-box-shadow: inherit;
+				background-color: transparent;
+				transition:background-color .4s;
+			}
+
+			#guide-nav nav ul li a{
+				color: #fff;
+				font-style: normal;
+				font-weight: 600;
+				font-size: 16px;
+				text-align: center;
+				text-transform: uppercase;
+				&.active{
+					color: #F04438;
+				}
+				&:hover{
+					color: #F04438;
+				}
+			}
+
+			#guide-search > .ic-search i{
+				color: #fff;
+			}
+
+			#guide-user .guide-user__login--no i{
+				color: #fff;
+			}
+		}
+	}
+}
