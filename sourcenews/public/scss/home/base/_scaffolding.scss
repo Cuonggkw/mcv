@@ -181,7 +181,7 @@ body[style^="padding-right"] {
   width: 100%;
   min-height: 100vh;
   flex-direction: column;
-  background-color: $bg-primary;
+  background-color: #ffffff;
   font-size: $font-size-body;
   font-family: $font-family-base;
   // padding-top: $header-height-pc;
@@ -199,6 +199,15 @@ body[style^="padding-right"] {
 }
 
 #nl-main {
+  max-width: 100% !important;
+  // margin: auto;
+
+  @media (min-width: 1440px) {
+    max-width: 1440px;
+  }
+}
+
+#nl-main_detail{
   max-width: 100%;
   margin: auto;
 
@@ -243,6 +252,7 @@ body[style^="padding-right"] {
 
 .sl-section {
   margin-top: $slSection-margin-top;
+  background-color: #ffffff;
 
   @include media-breakpoint-down(md) {
     margin-top: 0;

@@ -32,9 +32,9 @@ class Form extends React.Component {
               isRequied: true,
             },
             {
-              key: "description",
-              label: "Nội dung",
-              type: "text",
+              key: "parent_id",
+              label: "Số mục",
+              type: "number",
               col: "left",
               isRequied: true,
             },

@@ -73,7 +73,7 @@ export default class extends React.Component {
         PageComponent = DynamicImport(() =>
           import(/*webpackChunkName:"homepage"*/ "@modules/News/Index")
         );
-        // PageComponent.getLayout = NestedBanner;
+        PageComponent.getLayout = NestedBanner;
         break;
       case "privacy":
         PageComponent = DynamicImport(() =>

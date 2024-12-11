@@ -134,33 +134,11 @@ class Layout extends React.Component {
 
     return this.props.openApp == "" ? (
       <React.Fragment>
+        	<Head data={this.props.data} router={this.props.router} />
         <div id="nl-wrapper">
-          {/* <Header renewTimeout={renewTimeout} renewToken={this.refreshToken} /> */}
+          <Header renewTimeout={renewTimeout} renewToken={this.refreshToken} />
           {this.props.children}
-          {this.props.stateStatus.status.isSuccessful && (
-            <Snackbar
-              open={this.props.stateStatus.status.isSuccessful}
-              autoHideDuration={2000}
-              onClose={this.handleCloseAlert}
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            >
-              <Alert severity="success">
-                {this.props.stateStatus.status.msg.text}
-              </Alert>
-            </Snackbar>
-          )}
-          {this.props.stateStatus.status.isFailure && (
-            <Snackbar
-              open={this.props.stateStatus.status.isFailure}
-              autoHideDuration={2000}
-              onClose={this.handleCloseAlert}
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            >
-              <Alert severity="error">
-                {this.props.stateStatus.status.msg.text}
-              </Alert>
-            </Snackbar>
-          )}
+      
           <Footer />
 
           <NavigatorMobile />

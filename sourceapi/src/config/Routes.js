@@ -36,9 +36,7 @@ fs.readdirSync(path.join(__dirname, "../modules")).map((module) => {
     }
 
     // Check File Validator
-    if (
-      fs.existsSync(path.join(__dirname, `../modules/${module}/Validator.js`))
-    )
+    if (fs.existsSync(path.join(__dirname, `../modules/${module}/Validator.js`)))
       _Validator[_router] = require(`@modules/${module}/Validator`);
 
     _Controller[_router] = require(`@modules/${module}/Controller`);
@@ -84,11 +82,7 @@ fs.readdirSync(path.join(__dirname, "../modules")).map((module) => {
             _Function[trimSlash(req.route.path)].update(req, res);
           }
         )
-        .delete(
-          isAccountCMSAuth,
-          _Validator[_router] && _Validator[_router]("delete")
-            ? _Validator[_router]("delete")
-            : (req, res, next) => next(),
+        .delete(isAccountCMSAuth,_Validator[_router] && _Validator[_router]("delete")? _Validator[_router]("delete") : (req, res, next) => next(),
           (req, res) => {
             _Function[trimSlash(req.route.path)].delete(req, res);
           }
@@ -98,13 +92,12 @@ fs.readdirSync(path.join(__dirname, "../modules")).map((module) => {
 });
 
 //SYSTEM
-router.route("/set-log").post((req, res) => {
-  _Function.logs.create(req, res);
-});
+router.route("/set-log").post((req, res) => {_Function.logs.create(req, res);});
 
-router.route("/news-all").get((req, res) => {
-  _Function.news.getAll(req, res);
-});
+router.route("/news-all").get((req, res) => {_Function.news.getAll(req, res);});
+router.route('/get-category').get((req, res) => { _Function.categories.getAll(req, res); });
+router.route('/get-tags').post((req, res) => { _Function.contacts.getAll(req, res); });
+router.route('/save-contact').post((req, res) => { _Function.contacts.create(req, res); });
 
 //CMS & CMS
 router

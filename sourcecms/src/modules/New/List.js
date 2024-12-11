@@ -37,6 +37,7 @@ class List extends React.Component {
           maxWidthPopup="lg"
           columns={[
             { key: "title", label: "Tiêu đề", type: "text" },
+            // { key: "slug", label: "Vai trò", type: "text" },
             { key: "image_url", label: "Ảnh", type: "image", cdn: process.env.API_URL + "/" },
             { key: "status", label: "Trạng thái", type: "status" },
             {

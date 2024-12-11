@@ -39,9 +39,16 @@ class Form extends React.Component {
               cdn: process.env.API_URL + "/",
               col: "left",
               isRequied: true,
+            }, 
+            {
+              key: "slug",
+              label: "Vai trò",
+              type: "text",
+              col: "left",
+              isRequied: true,
             },
             {
-              key: "excerpt",
+              key: "content",
               label: "Trích",
               type: "text",
               col: "left",

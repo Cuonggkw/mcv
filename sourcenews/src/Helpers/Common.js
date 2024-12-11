@@ -25,12 +25,7 @@ class Common {
     return await axios.get(_url, _options);
   };
 
-  postApi = async (
-    url,
-    params,
-    token = "",
-    contentType = "application/json;charset=UTF-8"
-  ) => {
+  postApi = async (url, params, token = "", contentType = "application/json;charset=UTF-8") => {
     let _url;
     let _options = {
       headers: {
@@ -39,12 +34,7 @@ class Common {
     };
     if (url.indexOf("http") != "-1") _url = url;
     else _url = apiUrl + url;
-    if (token != "")
-      _options.headers = {
-        ..._options.headers,
-        "Content-Type": contentType,
-        Authorization: `Bearer ${token}`,
-      };
+    if (token != "") _options.headers = {..._options.headers,"Content-Type": contentType,"Authorization": `Bearer ${token}`};
     return await axios.post(_url, params, _options);
   };
 
@@ -371,18 +361,13 @@ class Common {
       url != "" && url != undefined
         ? url.includes("http://") == true || url.includes("https://") == true
           ? url
-          : process.env.CDN_URL + "/" + url
+          : process.env.CDN_URL_S3 + "/" + url
         : "";
     return _url;
   };
 
   urlCDNS3 = (url) => {
-    let _url =
-      url != "" && url != undefined
-        ? url.includes("http://") == true || url.includes("https://") == true
-          ? url
-          : process.env.CDN_URL_S3 + "/" + url
-        : "";
+    let _url = (url != "" && url != undefined) ? url.includes("http://") == true || url.includes("https://") == true ? url : process.env.CDN_URL_S3 + "/" + url : "";
     return _url;
   };
 

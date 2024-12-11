@@ -84,19 +84,10 @@ class Card extends React.Component {
                   </Skeleton>
                 ) : (
                   <>
-                    <img
-                      src={this.props.image}
-                      className="img-fluid"
-                      alt={this.props.title}
-                    />
+                    <img src={this.props.image} className="img-fluid" alt={this.props.title} />
                     <div onClick={this.handleToggle}>
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        className={
-                          "btn btn-primary btn-submit" +
-                          (this.props.openCasting == 1 ? "" : " disabled")
-                        }
+                      <Button type="submit" variant="contained"
+                        className={"btn btn-primary btn-submit" + (this.props.openCasting == 1 ? "" : " disabled")}
                         disabled={
                           loading == true
                             ? true
@@ -136,13 +127,9 @@ class Card extends React.Component {
                   </Skeleton>
                 ) : (
                   <Link href={{ pathname: this.props.link }}>
-                    <a
-                      target={this.props.target ? this.props.target : "_self"}
-                      title={this.props.title}
+                    <a target={this.props.target ? this.props.target : "_self"} title={this.props.title}
                     >
-                      <img
-                        src={this.props.image}
-                        className="img-fluid"
+                      <img src={this.props.image} className="img-fluid"
                         // alt={this.props.title}
                       />
                     </a>

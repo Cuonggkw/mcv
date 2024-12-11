@@ -1,6 +1,7 @@
 @import 
 	'../../../core/components/dropdown';
 
+header{
 #nl-header{
 	width: 100%;
 	max-width: 100%;
@@ -83,37 +84,173 @@
 		@include box-shadow($header-shadow);
 
 		@include media-breakpoint-up(md){
-			&.transparent{
-				background-image: linear-gradient(to bottom,rgba(0,0,0,.8) 10%,rgba(0,0,0,0.08));
-				box-shadow: inherit;
-				-webkit-box-shadow: inherit;
-				-moz-box-shadow: inherit;
-				background-color: transparent;
-				transition:background-color .4s;
-			}
+		}
+	}
+}
 
-			#guide-nav nav ul li a{
-				color: #fff;
-				font-style: normal;
-				font-weight: 600;
-				font-size: 16px;
-				text-align: center;
-				text-transform: uppercase;
-				&.active{
-					color: #F04438;
-				}
-				&:hover{
-					color: #F04438;
-				}
-			}
+	.topBar{
+		max-width: 100%;
+		height: 32px;
+		background-color: #CB0000;
+    display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
 
-			#guide-search > .ic-search i{
-				color: #fff;
-			}
+		.frame_2{
+			display: flex;
+			width: 580px;
+			height: 16px;
+			font-size: 12px;
+			font-weight: 400;
+			line-height: 14px;
+			letter-spacing: 0.4px;
+			gap: 24px;
 
-			#guide-user .guide-user__login--no i{
-				color: #fff;
+		.phone{
+			display: flex;
+			color: #FFFFFF;
+			align-items: center;
+			gap: 4px;
+
+			.phone_icon{
+				width: 16px;
+				height: 16px;
+				fill: #FFFFFF;
 			}
 		}
+
+		.time{
+			display: flex;
+			color: #FFFFFF;
+			align-items: center;
+			gap: 4px;
+
+			.time_icon{
+				width: 16px;
+				height: 16px;
+				fill: #FFFFFF;
+			}
+		}
+	}
+
+		.frame_3{
+			display: flex;
+			width: 550px;
+			height: 16px;
+			font-size: 12px;
+			font-weight: 400;
+			line-height: 14px;
+			letter-spacing: 0.4px;
+			justify-content: flex-end;
+			gap: 24px;
+
+			.location{
+				gap: 4px;
+				color: #FFFFFF;
+				display: flex;
+				align-items: center;
+
+				.location_icon{
+					width: 16px;
+					height: 16px;
+					fill: #FFFFFF;
+				}
+			}
+
+			.language{
+				display: flex;
+				align-items: center;
+				color: #FFFFFF;
+				gap: 4px;
+
+				.language_icon{
+					width: 16px;
+					height: 16px;
+					fill: #FFFFFF;
+					margin-bottom: 7px;
+				}
+			}
+
+			.networking{
+				display: flex;
+				align-items: center;
+				gap: 8px;
+
+				.networking_icon{
+					width: 16px;
+					height: 16px;
+					fill: #FFFFFF;
+				}
+			}
+		}	
+	}
+
+	.menuBar{
+		width: 100%;
+		display: flex;
+		color: #FFFFFF;
+		align-items: center;
+		justify-content: center;
+		gap: 24px;
+		height: 80px;
+		
+
+		.logo_andat{
+			width: 161.68px;
+			height: 56px;
+		}
+
+		.menu{
+			font-family: $font-family-base !important;
+			font-weight: 600;
+			font-size: 16px;
+			color: black;
+
+			.menu-list{
+				display: flex;
+				align-items: center;
+				gap: 14px;
+
+				.list-frame{
+					display: flex;
+					align-items: center;
+				}
+
+
+				.menu_icon{
+					width: 15px;
+					height: 15px;
+					fill: #98A2B3;
+					margin-left: 5px;
+				}
+			}
+		}
+
+		.btn-book{
+			.booking{
+				width: 176px;
+				height: 44px;
+				display: flex;
+				border: none;
+				// align-items: center;
+				background-color: #E02401;
+				border-radius: 8px;
+				padding: 10px 20px;
+				gap: 8px;
+				font-size: 16px;
+				font-weight: 500;
+				line-height: 24px;
+				color: #FFFFFF;
+	
+	
+				.booking_icon{
+					width: 20px;
+					height: 20px;
+					fill: #FFFFFF;
+				}
+			}
+		}
+	
 	}
 }

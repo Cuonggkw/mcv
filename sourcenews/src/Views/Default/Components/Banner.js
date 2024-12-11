@@ -33,9 +33,9 @@ class Banner extends React.Component {
     _result.push({
       type: "cover",
       id: "",
-      title: "Bạn muốn trở thành nhân vật xuất hiện trên MCV Network?",
-      thumbnail: "/images/banner1.png",
-      link: "",
+      title: "Archive title",
+      thumbnail: "/images/baner_andat.png",
+      link: "/news",
     });
     return _result;
   };
@@ -72,11 +72,7 @@ class Banner extends React.Component {
       <React.Fragment>
         {this.state.banners && this.state.banners.length > 0 && (
           <>
-            <section
-              className={
-                "nl-banner" + (this.state.banners.length == 1 ? " only" : "")
-              }
-            >
+            <section className="nl-banner">
               <div className="nl-banner__inner">
                 <Swiper
                   spaceBetween={0}
@@ -88,7 +84,6 @@ class Banner extends React.Component {
                   {this.state.banners.map((banner, k) => (
                     <SwiperSlide key={"banner_" + k}>
                       <div className="nl-banner__image">
-                        {banner.type == "cover" ? (
                           <a
                             onClick={this.handleLink}
                             data-link={banner.link}
@@ -99,91 +94,11 @@ class Banner extends React.Component {
                               alt={banner.title}
                               src={banner.thumbnail}
                             />
-                            <div className="des-fluid">{banner.title}</div>
+                            <div className="overlay">
+                              <div className="des-fluid">{banner.title}</div>
+                              <div className="home-fluid">Trang chủ / <span>Archive title</span></div>
+                            </div>
                           </a>
-                        ) : (
-                          <Link
-                            href={
-                              "/live/" +
-                              changeToSlug(banner.title) +
-                              "/" +
-                              banner.id
-                            }
-                          >
-                            <a title={banner.title}>
-                              <img
-                                className="img-fluid"
-                                alt={banner.title}
-                                src={banner.thumbnail}
-                              />
-                            </a>
-                          </Link>
-                        )}
-                      </div>
-
-                      <div className="nl-banner__ctn">
-                        <div className="container">
-                          <div
-                            className={
-                              "block text-start " +
-                              (this.state.hideDescription ? "scale" : "")
-                            }
-                          >
-                            {banner.type == "cover" ? (
-                              banner.link &&
-                              banner.link != "null" && (
-                                <a
-                                  onClick={this.handleLink}
-                                  data-link={banner.link}
-                                  title={banner.title}
-                                >
-                                  <Button
-                                    variant="contained"
-                                    className="nl-button"
-                                  >
-                                    Xem ngay
-                                  </Button>
-                                </a>
-                              )
-                            ) : (
-                              <Link
-                                href={
-                                  "/live/" +
-                                  changeToSlug(banner.title) +
-                                  "/" +
-                                  banner.id
-                                }
-                              >
-                                <a>
-                                  <Button
-                                    variant="contained"
-                                    className="nl-button"
-                                  >
-                                    <Countdown
-                                      date={banner.startTime}
-                                      renderer={({ completed }) => {
-                                        if (completed)
-                                          return (
-                                            <>
-                                              <i className="fas fa-play"></i>{" "}
-                                              Xem ngay
-                                            </>
-                                          );
-                                        return (
-                                          <>
-                                            {" "}
-                                            <i className="fas fa-play"></i> Live
-                                            sắp tới
-                                          </>
-                                        );
-                                      }}
-                                    />
-                                  </Button>
-                                </a>
-                              </Link>
-                            )}
-                          </div>
-                        </div>
                       </div>
                     </SwiperSlide>
                   ))}

@@ -116,11 +116,11 @@ module.exports = class extends Controller {
       if (imageData && imagePath) {
         const base64Data = imageData.file.replace(/^data:image\/\w+;base64,/, "");
         // console.log(base64Data);
-        const _dir = "D://mcv//sourceapi//public//upload//news_image" || path.resolve(process.env.DIR_UPLOAD, "news_image");
+        const _dir = "D:\\mcv\\sourceapi\\public\\upload\\news_image" || path.resolve(process.env.DIR_UPLOAD, "news_image");
 
         if (!fs.existsSync(_dir)) fs.mkdirSync(_dir);
 
-        fs.writeFileSync(path.join("D://mcv//sourceapi//", imagePath), base64Data, 
+        fs.writeFileSync(path.join("D:\\mcv\\sourceapi\\", imagePath), base64Data, 
         "base64", function (err) {
             if (err) console.error(err);
             else console.log("File created successfully.");
@@ -136,41 +136,4 @@ module.exports = class extends Controller {
       return e.message;
     }
   }
-  // async create(req, res) {
-  //   try {
-  //     const _check = await this.validate(req, res);
-  //     if (_check == false) {
-  //       let _data = {};
-  //       _data = req.files?.image_url; // `image` là key trong form upload
-  //       if (!_data) {
-  //         return this.response(res, 400, "File ảnh không tồn tại.");
-  //       }
-  //       const uploadPath = path.resolve(__dirname, "../../upload/2022/11");
-
-  //       let extName = path.extname(_data.name);
-
-  //       let baseName = path.basename(_data.name, extName);
-
-  //       let finalName = `${baseName}-${Date.now()}${extName}`;
-  //       let filePath = `${uploadPath}/${finalName}`;
-
-  //       _data.mv(filePath, (err) => {
-  //         if (err) {
-  //           return this.response(res, 500, "Lỗi khi lưu file.");
-  //         }
-  //       });
-  //       // console.log(img);
-
-  //       const imageUrl = `/upload/2022/11/${filePath}`;
-  //       _data.image_url = imageUrl;
-  //       console.log(_data);
-  //       this.db.insert({ image_url: imageUrl }, _data);
-
-  //       this.response(res, 200);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     this.response(res, 500, "System error. Please try again!!!");
-  //   }
-  // }
 };
