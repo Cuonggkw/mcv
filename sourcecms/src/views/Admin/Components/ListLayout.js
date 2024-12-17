@@ -72,7 +72,7 @@ class ListLayout extends React.Component {
       shareSuccess: false,
       isConfirm: false,
       isUpdate: {
-        title: "",
+      title: "",
       },
       token: "",
       data: [],

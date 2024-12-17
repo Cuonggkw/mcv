@@ -123,17 +123,12 @@ class FormLayout extends React.Component {
     this._isMounted = true;
     //Check readOnly field
     let allFields = this.props.fields;
-    let readOnlyField = this.props.fields
-      .filter((field) => field?.readOnly)
-      .map((field) => field.key);
+    let readOnlyField = this.props.fields.filter((field) => field?.readOnly).map((field) => field.key);
     let _preview = this.state?.preview ?? {};
     let _result = {};
     if (this.props.stateStatus?.formLayout?.type == "Profile") {
       let _result;
-      _result = await fetchApi(
-        process.env.PREFIX_API + "me",
-        this.props.stateAccount.access_token
-      );
+      _result = await fetchApi(process.env.PREFIX_API + "me", this.props.stateAccount.access_token);
 
       if (typeof _result === "object") {
         this._isMounted && this.setState({ values: { ..._result?.result } });
@@ -143,16 +138,10 @@ class FormLayout extends React.Component {
     // Default
     if (this.state.id != "" && !this.props?.router?.query?.token) {
       let _url = process.env.PREFIX_API + this.state.module;
-      _result = await fetchApi(
-        _url + "/" + this.state.id,
-        this.props.stateAccount.access_token
-      );
+      _result = await fetchApi(_url + "/" + this.state.id, this.props.stateAccount.access_token);
       if (typeof _result === "object") {
         if (_result?.tags) {
-          this._isMounted &&
-            this.setState({
-              tags: { ...this.state.tags, ["tags"]: _result.tags.split(",") },
-            });
+          this._isMounted && this.setState({tags: { ...this.state.tags, ["tags"]: _result.tags.split(",") }});
         }
 
         // SET PREVIEW
@@ -163,28 +152,16 @@ class FormLayout extends React.Component {
             if (_findIndex !== -1 && allFields[_findIndex].type == "image") {
               _preview = {
                 ..._preview,
-                [`${_key}`]: v[1]
-                  ? (allFields[_findIndex]?.cdn ?? process.env.CDN_URL_S3) +
-                    v[1]
-                  : "",
+                [`${_key}`]: v[1] ? (allFields[_findIndex]?.cdn ?? process.env.CDN_URL_S3) + v[1] : "",
               };
             }
-            if (
-              _findIndex !== -1 &&
-              allFields[_findIndex].type == "multi_image"
-            ) {
-              _preview = {
-                ..._preview,
-                [`${_key}`]: v[1] ? v[1] : {},
-              };
+            if (_findIndex !== -1 && allFields[_findIndex].type == "multi_image") {
+              _preview = {..._preview, [`${_key}`]: v[1] ? v[1] : {}};
             }
             if (_findIndex !== -1 && allFields[_findIndex].type == "video") {
               _preview = {
                 ..._preview,
-                [`${_key}`]: v[1]
-                  ? (allFields[_findIndex]?.cdn ?? process.env.CDN_URL_S3) +
-                    v[1]
-                  : "",
+                [`${_key}`]: v[1] ? (allFields[_findIndex]?.cdn ?? process.env.CDN_URL_S3) + v[1] : "",
               };
             }
           });
@@ -256,26 +233,17 @@ class FormLayout extends React.Component {
           });
           _result = { status: "success", data: value };
         } else {
-          let _url =
-            value.indexOf("http") >= 0 ? value : process.env.PREFIX_API + value;
+          let _url = value.indexOf("http") >= 0 ? value : process.env.PREFIX_API + value;
           _result = await fetchApi(_url, this.props.stateAccount.access_token);
         }
         if (_result?.status == "success") {
           _datas[key] = _result?.items ?? _result?.data ?? {};
           let _findIndex = _.findIndex(this.props.fields, { key: key });
-          let _defaultValue =
-            this.props?.fields[_findIndex]?.values &&
-            this.props?.fields[_findIndex]?.values.length > 0
-              ? this.props?.fields[_findIndex]?.values[0].value
-              : null;
-          _data[key] =
-            typeof _data[key] !== "undefined" && _data[key] != null
-              ? _data[key]
-              : _defaultValue != null
-              ? _defaultValue
-              : this.props.fields[_findIndex]?.type == "select_multi"
-              ? [_datas[key][0]?.id]
-              : [_datas[key][0]?.id] ?? "";
+          let _defaultValue = this.props?.fields[_findIndex]?.values && this.props?.fields[_findIndex]?.values.length > 0
+              ? this.props?.fields[_findIndex]?.values[0].value : null;
+          _data[key] = typeof _data[key] !== "undefined" && _data[key] != null ? _data[key] : _defaultValue != null
+              ? _defaultValue : this.props.fields[_findIndex]?.type == "select_multi"
+              ? [_datas[key][0]?.id] : [_datas[key][0]?.id] ?? "";
           await this.handleGetCustomfields(key, _datas[key], _data[key]);
         }
       }
@@ -287,13 +255,8 @@ class FormLayout extends React.Component {
         _dataMore[key] = _result;
       }
     }
-    this._isMounted &&
-      this.setState(
-        {
-          data: { ..._datas },
-          values: { ..._data },
-          dataMore: { ..._dataMore },
-        },
+    this._isMounted && this.setState(
+      {data: { ..._datas }, values: { ..._data }, dataMore: { ..._dataMore }},
         async () => {
           await Promise.all(
             Object.entries(_data).map(async (v) => {
@@ -315,21 +278,18 @@ class FormLayout extends React.Component {
       );
   }
 
+  // question
   async handleOnForChange(_index, _onForChange, _id, _data) {
     let _func = _onForChange?.func;
+    console.log(_func);
     let _keys = _onForChange["key"].split(",");
     for await (const idx of Object.keys(_keys)) {
       let _key = _keys[idx];
       let _result = await _func(_id, this.props.stateAccount.access_token);
-      let _defaultData =
-        _data[_key] ??
-        (_result && _result.length > 0 && _result[0]?.id
-          ? _result[0].id
-          : null);
+      let _defaultData = _data[_key] ?? (_result && _result.length > 0 && _result[0]?.id ? _result[0].id : null);
       _data[_key] = _defaultData;
       if (_result && _result.length > 0 && _defaultData !== null) {
-        this._isMounted &&
-          this.setState(
+        this._isMounted && this.setState(
             {
               data: { ...this.state.data, [_key]: _result },
               values: { ...this.state.values, [_key]: _defaultData },
@@ -354,9 +314,7 @@ class FormLayout extends React.Component {
 
   async handleHiddenFields(_data) {
     let hiddenFieldConfigs = this.props.hiddenFieldConfigs;
-    let hiddenField = this.props.fields
-      .filter((field) => field?.hidden)
-      .map((field) => field.key);
+    let hiddenField = this.props.fields.filter((field) => field?.hidden).map((field) => field.key);
     if (_data) {
       let _dataMore = this.state.dataMore;
       Object.entries(_data).forEach(function (v) {
@@ -389,25 +347,13 @@ class FormLayout extends React.Component {
                     });
                 });
               }
-              if (
-                _isSuccess &&
-                Object.entries(item.values).length > 0 &&
-                item.values.includes(v[1])
-              ) {
-                Object.entries(
-                  hiddenFieldConfigs[_index].keyTagert[item.keyTagertId]
-                ).length > 0 &&
-                  hiddenFieldConfigs[_index].keyTagert[
-                    item.keyTagertId
-                  ].forEach((keyTagert) => {
-                    hiddenField = hiddenField.filter(
-                      (field) => field != keyTagert
-                    );
+              if (_isSuccess && Object.entries(item.values).length > 0 && item.values.includes(v[1])) {
+                Object.entries(hiddenFieldConfigs[_index].keyTagert[item.keyTagertId]).length > 0 &&
+                  hiddenFieldConfigs[_index].keyTagert[item.keyTagertId].forEach((keyTagert) => {
+                    hiddenField = hiddenField.filter((field) => field != keyTagert);
                   });
                 hiddenFieldConfigs[_index]?.keyTagertHidden &&
-                  Object.entries(
-                    hiddenFieldConfigs[_index].keyTagertHidden[item.keyTagertId]
-                  ).length > 0 &&
+                  Object.entries(hiddenFieldConfigs[_index].keyTagertHidden[item.keyTagertId]).length > 0 &&
                   hiddenFieldConfigs[_index].keyTagertHidden[
                     item.keyTagertId
                   ].forEach((keyTagert) => {
@@ -513,7 +459,7 @@ class FormLayout extends React.Component {
   handleUpload = (e) => {
     let _err = this.state.errors;
     let _findKey = _.findIndex(_err, { key: e.currentTarget?.name });
-    console.log("check: ",_findKey);
+    // console.log("check: ",_findKey);
     delete _err[_findKey];
     if (
       e.currentTarget.files[0].size / 1000 >= 2000 &&
@@ -3929,17 +3875,7 @@ class FormLayout extends React.Component {
   };
 
   render() {
-    let {
-      isAlert,
-      openPopupEdit,
-      module,
-      kpiMonth,
-      tabPlatForm,
-      tabEvent,
-      numberErrTab,
-    } = this.state;
-    //console.log('values',this.state.values, 'data',this.state.data, 'hidden',this.state.hiddenField, 'morekeys',this.state.morekeys)
-
+    let { isAlert, openPopupEdit, module, kpiMonth, tabPlatForm, tabEvent, numberErrTab } = this.state;
     return (
       <>
         <form id="form" onSubmit={this.handleSubmit}>

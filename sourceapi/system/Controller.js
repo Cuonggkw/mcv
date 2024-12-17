@@ -242,37 +242,16 @@ module.exports = class Controller {
           const _inserts = [];
           const _updates = [];
           const _deletes = [];
-          let ignoreKey = [
-            "created_at",
-            "deleted_at",
-            "updated_at",
-            "id",
-            "status",
-            "creator",
-          ];
-          const keyDate = [
-            "created_at",
-            "deleted_at",
-            "updated_at",
-            "published_result_at",
-            "started_at",
-            "ended_at",
-          ];
+          let ignoreKey = ["created_at", "deleted_at", "updated_at", "id", "status", "creator"];
+          const keyDate = ["created_at", "deleted_at", "updated_at", "published_result_at", "started_at", "ended_at"];
           if (_data?.ignoreKey && _data.ignoreKey?.length > 0)
             ignoreKey = [...ignoreKey, ..._data.ignoreKey];
           if (_data?.fqs && _data.fqs.length > 0) {
             let _fq = "";
             _data.fqs.forEach((fq) => {
-              if (fq?.key && fq?.value)
-                _fq =
-                  _fq == ""
-                    ? `${fq.key}:${fq.value}`
-                    : `${_fq},${fq.key}:${fq.value}`;
-            });
-            const _dataCurrents = await this.db.find({
-              query: { fq: _fq, limit: 1000 },
-            });
-            _data?.items.forEach((item) => {
+              if (fq?.key && fq?.value) _fq = _fq == "" ? `${fq.key}:${fq.value}` : `${_fq},${fq.key}:${fq.value}`});
+              const _dataCurrents = await this.db.find({query: { fq: _fq, limit: 1000 }});
+              _data?.items.forEach((item) => {
               const find = _dataCurrents.data.find((value) => {
                 let _check = true;
                 for (const key of Object.keys(item)) {

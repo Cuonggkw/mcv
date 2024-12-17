@@ -96,7 +96,7 @@ router.route("/set-log").post((req, res) => {_Function.logs.create(req, res);});
 
 router.route("/news-all").get((req, res) => {_Function.news.getAll(req, res);});
 router.route('/get-category').get((req, res) => { _Function.categories.getAll(req, res); });
-router.route('/get-tags').post((req, res) => { _Function.contacts.getAll(req, res); });
+router.route('/get-tags').get((req, res) => { _Function.tags.getAll(req, res); });
 router.route('/save-contact').post((req, res) => { _Function.contacts.create(req, res); });
 
 //CMS & CMS

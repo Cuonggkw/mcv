@@ -70,45 +70,35 @@ export default class extends React.Component {
         PageComponent.getLayout = NestedBanner;
         break;
       case "news":
-        PageComponent = DynamicImport(() =>
-          import(/*webpackChunkName:"homepage"*/ "@modules/News/Index")
-        );
+        PageComponent = DynamicImport(() => import(/*webpackChunkName:"homepage"*/ "@modules/News/Index"));
         PageComponent.getLayout = NestedBanner;
         break;
       case "privacy":
-        PageComponent = DynamicImport(() =>
-          import(/*webpackChunkName:"privacy"*/ "@modules/Home/Privacy")
-        );
+        PageComponent = DynamicImport(() => import(/*webpackChunkName:"privacy"*/ "@modules/Home/Privacy"));
         break;
-      case "terms":
-        PageComponent = DynamicImport(() =>
-          import(/*webpackChunkName:"terms"*/ "@modules/Home/Terms")
-        );
+      case "tags":
+        PageComponent = DynamicImport(() => import(/*webpackChunkName:"terms"*/ "@modules/News/Components/indexTag"));
+        PageComponent.getLayout = NestedBanner;
+        break;
+      case 'terms':
+        PageComponent = DynamicImport(() => import(/*webpackChunkName:"terms"*/'@modules/Home/Terms'));
         break;
       case "tai-khoan-bao-mat":
-        PageComponent = DynamicImport(() =>
-          import(/*webpackChunkName:"user.profile"*/ "@modules/User/Profile")
-        );
+        PageComponent = DynamicImport(() => import(/*webpackChunkName:"user.profile"*/ "@modules/User/Profile"));
         PageComponent.getLayout = NestedLayout;
         break;
       default:
-        PageComponent = DynamicImport(() =>
-          import(/*webpackChunkName:"error"*/ "@modules/Home/Error")
-        );
+        PageComponent = DynamicImport(() => import(/*webpackChunkName:"error"*/ "@modules/Home/Error"));
         break;
     }
 
     if (route && slug) {
       switch (route) {
-        case "news":
-          PageComponent = DynamicImport(() =>
-            import(/*webpackChunkName:"homepage"*/ "@modules/News/Detail")
-          );
+        case "tin-tuc":
+          PageComponent = DynamicImport(() => import(/*webpackChunkName:"homepage"*/ "@modules/News/Detail"));
           break;
         default:
-          PageComponent = DynamicImport(() =>
-            import(/*webpackChunkName:"error"*/ "@modules/Home/Error")
-          );
+          PageComponent = DynamicImport(() => import(/*webpackChunkName:"error"*/ "@modules/Home/Error"));
           break;
       }
     }

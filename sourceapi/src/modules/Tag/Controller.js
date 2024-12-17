@@ -17,7 +17,7 @@ const path = require('path');
 module.exports = class extends Controller {
   constructor(tableName) {
       super(tableName);
-      this.db = new Model('contacts');
+      this.db = new Model("tags");
   } 
 } ;
 

@@ -25,6 +25,12 @@ module.exports = class extends Controller {
           table: "categories",
           mergeField: "categories.name as categories_name",
         },
+        {
+          fieldJoin: "tag_id",
+          fieldTarget: "id",
+          table: "tags",
+          mergeField: "tags.slug as tag_slug",
+        },
       ];
       const _data = await this.db.find(req);
       let _items = _data.data.filter((v) => v.id !== process.env.ADMIN_ID);
@@ -66,6 +72,7 @@ module.exports = class extends Controller {
             return this.response(res, 500, "Upload failure, please try again");
           }
         }
+        if(_data?.tag_id)  _data.tag_id = JSON.stringify(_data?.tag_id);
         this.db.insert(_data);
         this.response(res, 200);
       }
@@ -101,7 +108,7 @@ module.exports = class extends Controller {
           }
         }
         if(_data?.ended_at) _data.ended_at = new Date(_data.ended_at);
-
+        if(_data?.tag_id)  _data.tag_id = JSON.stringify(_data?.tag_id);
       this.db.update({ id: req.params.id }, _data);
       this.response(res, 200);
       }
@@ -109,7 +116,6 @@ module.exports = class extends Controller {
       this.response(res, 500, e.message);
     }
   }
-
 
   async uploadFileLocal(imageData, imagePath) {
     try {
@@ -134,6 +140,20 @@ module.exports = class extends Controller {
     } catch (e) {
       console.log(e);
       return e.message;
+    }
+  }
+
+  async get(req, res) {
+    try {
+      const _conditions = {};
+      _conditions.id = req.params.id;
+      const _result = await this.db.get(_conditions, true);
+      // console.log(_result);
+      if(_result?.tag_id) _result.tag_id = JSON.parse(_result?.tag_id);
+
+      this.response(res, 200 , {data: _result});
+    } catch (e) {
+      this.response(res, 500, e.message);
     }
   }
 };

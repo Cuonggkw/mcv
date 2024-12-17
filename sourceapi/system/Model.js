@@ -53,11 +53,7 @@ module.exports = class Model {
   }
 
   async insert(data = null, returnField = "", shouldInsertId) {
-    return await this.buildQuery("insert", {
-      data,
-      returnField,
-      shouldInsertId,
-    });
+    return await this.buildQuery("insert", {data, returnField, shouldInsertId });
   }
 
   async update(conditions = {}, data = null) {

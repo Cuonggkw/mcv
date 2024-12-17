@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import Action from "@libs/Action";
 import Link from "next/link";
 import Datlich from "@modules/News/Components/Datlich";
-import Tag from "@modules/News/Components/Tag";
+import Tags from "@modules/News/Components/Tags";
 
 /* Package Application */
 import { fetchApi, changeToSlug } from "@helpers/Common";
@@ -36,7 +36,7 @@ class Detail extends React.Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    if (this.state.dataPage.length == 0) {
+    if (this.state.dataPage.length === 0) {
       this.getData();
     }
 
@@ -160,7 +160,8 @@ class Detail extends React.Component {
                         
                         <Datlich />
                         <div className="line_1"></div>
-                        <Tag />
+                        <Tags data={this.state.dataPage} tag_id/>
+                        <div className="line_1"></div>
                       </div>
                       <div className="container-item-2">
                         <div className="container_service">
@@ -222,7 +223,24 @@ class Detail extends React.Component {
                           <img alt="" src="/images/phu-khoa.png" />
                         </div>
                       </div>
-                      {/* <div className="container-item-r"></div> */}
+                      {/* <div className="container-item-r">hello</div> */}
+                    </div>
+                    <div className="container-card">
+                      <div className="outstanding_header">
+                        <span className="outstanding_title">Bài viết liên quan</span>
+                        <div className="rectangle"></div>
+                      </div>
+                      <div className="card_image">
+                            {this.state.dataPageNew && this.state.dataPageNew.length > 0 &&
+                              this.state.dataPageNew.slice(2, 6).map((item) => (
+                                <div key={item.id} className="card_travel">
+                                  <div className="card_img">
+                                    <img alt="" src={`${process.env.CDN_URL_S3}/${item.image_url}`} />
+                                  </div>
+                                  <div className="card_content">{item.title}</div>
+                              </div>
+                              ))}
+                          </div>
                     </div>
                   </div>
               </section>

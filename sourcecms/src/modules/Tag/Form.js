@@ -22,45 +22,22 @@ class Form extends React.Component {
 					hideColRight={true} -- ẩn cột phải
 				*/}
         <FormLayout
-          getData={{ category_id: "categories?limit=10000&fqnull=deleted_at", tag_id: "tags?limit=10000&fqnull=deleted_at" }}
+          // getData={{ category_id: "categories?limit=10000&fqnull=deleted_at" }}
           fields={[
             {
-              key: "title",
-              label: "Tiêu đề",
+              key: "name",
+              label: "Tên tag",
               type: "text",
               col: "left",
               isRequied: true,
             },
-          
             {
-              key: "image_url",
-              label: "Ảnh",
-              type: "image",
-              cdn: process.env.API_URL + "/",
+              key: "slug",
+              label: "Slug",
+              type: "text",
               col: "left",
               isRequied: true,
             }, 
-            {
-              key: "slug",
-              label: "Vai trò",
-              type: "text",
-              col: "left",
-              isRequied: true,
-            },
-            {
-              key: "category_id",
-              label: "Danh mục",
-              type: "select",
-              defaultValue: true,
-              col: "left",
-            },
-            {
-              key: "tag_id",
-              label: "Nhãn",
-              type: "select_multi",
-              defaultValue: true,
-              col: "left",
-            },
             {
               key: "status",
               label: "Trạng thái",

@@ -522,7 +522,7 @@ body {
 }
 
 .news-imagee{
-  width: 416px;
+  max-width: 416px;
 }
 
 .travel{
@@ -751,4 +751,123 @@ body {
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
+}
+
+.tag_card{
+  display: flex;
+  width: 779px;
+  min-height: auto;
+  gap: 24px;
+}
+
+.tem{
+  display: flex;
+  width: 542px;
+  gap: 24px;
+}
+
+.tem_tag{
+  display: flex;
+  gap: 8px;
+  width: 494px;
+  min-height: auto;
+}
+
+.tag_card-tem{
+  max-width: 100%;
+  height: 26px;
+  border-radius: 99px;
+  padding: 4px 16px;
+  background-color: #F3F4F6;
+  cursor: pointer;
+}
+
+.tag_card-name{
+  font-family: Roboto;
+  font-size: 12px;
+  line-height: 18px;
+  color: #000000;
+}
+
+.tem_header{
+  font-family: Roboto;
+  font-size: 12px;
+  line-height: 28px;
+  color: #80868B;
+}
+
+#nl-main_tag{
+  max-width: 100%;
+  margin: auto;
+  margin-top: 30px;
+  display: flex;
+  margin-left: 20px;
+  margin-right: 20px;
+
+
+  @media (min-width: 1440px) {
+    max-width: 1200px;
+  }
+}
+
+.menuBarIcon{
+  width: 272px;
+  height: 240px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.partnerLogos{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.25px;
+  color: #0E1013;
+}
+
+.cartTinTuc {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  min-height: auto;
+  gap: 12px;
+}
+
+.sl-section__content{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin: 0 18px;
+}
+
+.container-card{
+  display: flex;
+  max-width: 1184px;
+  min-height: auto;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card_image{
+  display: flex;
+  gap: 24px;
+}
+
+.card_img img{
+  width: 272px;
+  height: 162px;
+  border-radius: 8px;
+}
+
+.card_travel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card_content{
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+  color: #0E1013;
 }

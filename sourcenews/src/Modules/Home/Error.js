@@ -22,7 +22,7 @@ export default class extends React.Component {
 					<p>Trang không tồn tại</p>
 
 					<div className="backToHome">
-						<Link href="/">
+						<Link href="/news">
 							<a title="Trang chủ">
 								<Button variant="contained" className="nl-button" >
 									<i className="fas fa-caret-left"></i> Quay về trang chủ
