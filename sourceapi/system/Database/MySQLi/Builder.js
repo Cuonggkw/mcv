@@ -502,7 +502,6 @@ module.exports = class Builder {
             params.push(_fq[1]);
           }
         }
-
         whereQuery += whereByKeyQuery;
       }
 

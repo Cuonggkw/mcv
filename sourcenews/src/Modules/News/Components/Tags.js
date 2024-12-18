@@ -79,7 +79,7 @@ class Tags extends React.Component {
               this.state.dataPage.map((item, index) => {
                 return(
                   <div key={index} className="tag_card-tem">
-                    <div className="tag_card-name" onClick={() => Router.push({pathname: "/tags", query: {tag: item.name}})}
+                    <div className="tag_card-name" onClick={() => Router.push({pathname: "/tags", query: {tag: item.id}})}
                     >{item.name}</div>
                   </div>
                 )

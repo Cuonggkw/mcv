@@ -24,8 +24,7 @@ class CardFooter extends React.Component {
 
   componentDidUpdate(prevProps, prevState){
     if(prevState.page !== this.state.page || prevState.limit !== this.state.limit)
-      this.props.getData(`limit=${this.state.limit}&offset=${(this.state.page-1)*this.state.limit}`).then(res=>this.setState({values:res.data,total:res?.total}));
-
+      this.props.getData(`limit=${this.state.limit}&offset=${(this.state.page - 1)*this.state.limit}`).then(res=>this.setState({values:res.data,total:res?.total}));
   }
   handlePagination = async (e, page) => {
     this.setState({ page: page });

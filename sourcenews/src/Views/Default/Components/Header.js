@@ -17,6 +17,8 @@ import Search from "@views/Default/Components/Search";
 import Image from "next/image";
 //import Notification from '@views/Default/Components/Notification';
 import User from "@views/Default/Components/User";
+import { fetchApi, postApi, changeToSlug } from "@helpers/Common";
+
 
 /* Package style */
 import CssBaseline from "@mui/material/CssBaseline";
@@ -31,6 +33,14 @@ class Header extends React.Component {
       value: "",
       suggestion: [],
       linkSubmit: "",
+      appointmentSuccess: false,
+      countdown: 60,
+      msg: "",
+      validation: {},
+      status: { loading: false },
+      // full_name: "",
+      // email: "",
+      // phone_number: ""
     };
     this.handleScroll = this.handleScroll.bind(this);
   }
@@ -62,6 +72,51 @@ class Header extends React.Component {
     }
   };
 
+  handleFailure = (error) => {
+    this.setState({
+      successMessage: null,
+      errorMessage: error,
+      isOpen: true,
+    })
+  };
+
+  handleSucces = (message) => {
+    this.setState({
+      successMessage: message,
+      errorMessage: null,
+      isOpen: true,
+    });
+  };
+
+    handleSubmit = (event) => {
+      event.preventDefault();
+      const {full_name, email, phone_number} = this.state;
+      const formData = {
+        full_name: full_name,
+        email: email,
+        phone_number: phone_number,
+      };
+      console.log(formData);
+      this.setState({
+        full_name: "",
+        email: "",
+        phone_number: ""
+      });
+  
+     postApi(process.env.API_URL + "save-contact", formData).then((res) => {
+        if(res?.response?.data?.status === "error"){
+          this.handleFailure(res?.response?.data?.errors?.[0]?.msg ?? "Appointment booking failed");
+        }else{
+          this.handleSucces("Appointment booked successfully");
+          this.setState({appointmentSuccess: true});
+        }
+      }).catch((error) => {
+        console.log(error);
+        this.handleFailure("An error occurred while booking appointment");
+      })
+    };
+  
+
   handleClose = () => {
     this.setState({
       isOpen: false,
@@ -72,6 +127,12 @@ class Header extends React.Component {
     this.setState({
       isOpen: true
     })
+  };
+
+  handleOnChange = (e)=> {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
   };
 
   render() {

@@ -22,6 +22,9 @@ class Datlich extends React.Component {
       values: "",
       validation: {},
       status: { loading: false },
+      full_name: "",
+      email: "",
+      phone_number: ""
     };
   }
 
@@ -77,7 +80,7 @@ class Datlich extends React.Component {
       phone_number: ""
     });
 
-    postApi(process.env.API_URL + "save-contact" + formData).then((res) => {
+   postApi(process.env.API_URL + "save-contact", formData).then((res) => {
       if(res?.response?.data?.status === "error"){
         this.handleFailure(res?.response?.data?.errors?.[0]?.msg ?? "Appointment booking failed");
       }else{

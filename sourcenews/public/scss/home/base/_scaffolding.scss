@@ -251,7 +251,7 @@ body[style^="padding-right"] {
 }
 
 .sl-section {
-  margin-top: $slSection-margin-top;
+  margin-top: 50px;
   background-color: #ffffff;
 
   @include media-breakpoint-down(md) {

@@ -36,11 +36,7 @@ class Card extends React.Component {
         this.props.setStatus(OPEN_MODAL, "applyCasting");
         this.props.setValueStatus(OPEN_APPLY, this.props.onClickValue);
       }
-      if (
-        this.props.onClickValue &&
-        this.props.onReview &&
-        this.props.onReview == "handleToggleModalReview"
-      ) {
+      if (this.props.onClickValue && this.props.onReview && this.props.onReview == "handleToggleModalReview") {
         this.props.setStatus(OPEN_MODAL, "reviewCasting");
         this.props.setValueStatus(OPEN_APPLY, this.props.onClickValue);
       }

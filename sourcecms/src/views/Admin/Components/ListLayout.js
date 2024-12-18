@@ -117,11 +117,7 @@ class ListLayout extends React.Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.stateAccount?.access_token !=
-        prevProps?.stateAccount?.access_token &&
-      this.state.isLoadedData == false
-    ) {
+    if (this.props.stateAccount?.access_token != prevProps?.stateAccount?.access_token && this.state.isLoadedData == false) {
       this.getData(this.getObjectQuery());
     }
   }
@@ -138,10 +134,7 @@ class ListLayout extends React.Component {
         let _fqRange = "";
         if (filter?.page && filter?.page > 0)
           await this.setState({ page: filter?.page });
-        _filter +=
-          "?sort=" +
-          (this.state.isSort == "desc" ? "-" : "") +
-          this.state.isSorting;
+        _filter += "?sort=" + (this.state.isSort == "desc" ? "-" : "") + this.state.isSorting;
         _filter += "&limit=" + this.state.limit;
         _filter += "&offset=" + (this.state.page - 1) * this.state.limit;
         _filter += "&fqnull=deleted_at";
@@ -986,8 +979,7 @@ class ListLayout extends React.Component {
   };
 
   render() {
-    let { isCheck, limit, data, total, isSorting, isSort, isLoading } =
-      this.state;
+    let { isCheck, limit, data, total, isSorting, isSort, isLoading } = this.state;
     let _errArr = this.state.errors;
     return (
       <React.Fragment>
