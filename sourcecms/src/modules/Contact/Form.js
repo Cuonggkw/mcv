@@ -42,7 +42,7 @@ class Form extends React.Component {
             {
               key: "phone_number",
               label: "Số điện thoại",
-              type: "text",
+              type: "number",
               col: "left",
               isRequied: true,
             },

@@ -91,7 +91,7 @@ class Profile extends React.Component{
 					}
 				}).catch(e=>{
 					if(e.response){
-						this._isMounted&&this.setState({status:{...this.state.status,loading:false},msg:getMsg(e.response)});
+						this._isMounted && this.setState({status:{...this.state.status,loading:false},msg:getMsg(e.response)});
 					}
 				});
 			}
@@ -158,7 +158,7 @@ class Profile extends React.Component{
 		this.setState({values:{...this.state.values,['phoneCode']:val}});
 	}
 
-	initPage(){
+	initPage () {
 		let _user = this.props.stateUser;
 		if(_user.phone){
 			const _phoneValidate = phone(_user.phone);
@@ -177,13 +177,13 @@ class Profile extends React.Component{
 
 	componentDidMount(){
 		this._isMounted = true;
-		if(Object.keys(this.props.stateUser).length>0){
+		if(Object.keys(this.props.stateUser).length > 0){
 			this.initPage();
 		}
 	}
 
 	componentDidUpdate(prevProps,prevState,snapshot){
-		if(Object.keys(this.props.stateUser).length>0&&Object.keys(this.state.values).length==1){
+		if(Object.keys(this.props.stateUser).length > 0 && Object.keys(this.state.values).length==1){
 			this.initPage();
 		}
 	}

@@ -34,12 +34,13 @@ class List extends React.Component {
         <ListLayout
           nameDisplay={"Quản lý người dùng"}
           isBtnAdd={true}
+          search={true}
           maxWidthPopup="lg"
           columns={[
             { key: "full_name", label: "Họ và tên", type: "text" },
             { key: "email", label: "Email", type: "text" },
             { key: "phone_number", label: "Số điện thoại", type: "text" },
-            { key: "note", label: "Ghi chú", type: "text" },
+            { key: "booking", label: "Đặt lịch", type: "dateTime" },
             {
               key: "created_at",
               label: "Ngày tạo",

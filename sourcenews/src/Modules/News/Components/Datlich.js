@@ -5,9 +5,15 @@ import React from "react";
 import { connect } from "react-redux";
 import Action from "@libs/Action";
 import Link from "next/link";
-
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import {IconButton,Button, TextField, Stack, Select, MenuItem} from '@mui/material';
+import moment from "moment";
+import dayjs from 'dayjs';
 /* Package Application */
-import { fetchApi, postApi, changeToSlug } from "@helpers/Common";
+import {validationForm, fetchApi, postApi, changeToSlug } from "@helpers/Common";
+import { values } from "lodash";
 
 /* Package style */
 class Datlich extends React.Component {
@@ -19,12 +25,9 @@ class Datlich extends React.Component {
       appointmentSuccess: false,
       countdown: 60,
       msg: "",
-      values: "",
+      values: {},
       validation: {},
       status: { loading: false },
-      full_name: "",
-      email: "",
-      phone_number: ""
     };
   }
 
@@ -41,9 +44,8 @@ class Datlich extends React.Component {
   }
 
   handleOnChange = (e)=> {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+    let _value = e.target.type==="checkbox" ? e.target.checked : e.target.value;
+		this.setState({values: {...this.state.values,[e.target.name] : _value}});
   };
   
   handleSucces = (message) => {
@@ -55,6 +57,9 @@ class Datlich extends React.Component {
   };
 
   async componentDidUpdate(prevProps, prevState) {
+    if(Object.keys(this.props.stateUser).length > 0 && Object.keys(this.state.values).length==1){
+			this.initPage();
+		}
   }
 
   handleFailure = (error) => {
@@ -67,30 +72,36 @@ class Datlich extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const {full_name, email, phone_number} = this.state;
-    const formData = {
-      full_name: full_name,
-      email: email,
-      phone_number: phone_number,
-    };
-    console.log(formData);
-    this.setState({
-      full_name: "",
-      email: "",
-      phone_number: ""
-    });
+    if(this._isMounted){
+      let formData = {
+        full_name: this.state.values.full_name,
+        email: this.state.values.email,
+        phone_number: this.state.values.phone_number,
+        booking: this.state.values.booking != null ? moment(this.state.values.booking).format("YYYY-MM-DD") : "",
+      };
+      // let _validation = validationForm({...formData},'profile');
 
-   postApi(process.env.API_URL + "save-contact", formData).then((res) => {
-      if(res?.response?.data?.status === "error"){
-        this.handleFailure(res?.response?.data?.errors?.[0]?.msg ?? "Appointment booking failed");
-      }else{
-        this.handleSucces("Appointment booked successfully");
-        this.setState({appointmentSuccess: true});
-      }
-    }).catch((error) => {
-      console.log(error);
-      this.handleFailure("An error occurred while booking appointment");
-    })
+      this._isMounted && postApi(process.env.API_URL + "save-contact", formData).then((res) => {
+        if(res?.response?.data?.status === "error"){
+          this.handleFailure(res?.response?.data?.errors?.[0]?.msg ?? "Appointment booking failed");
+        }else{
+          this.handleSucces("Appointment booked successfully");
+          this.setState({
+            values:{
+              full_name: "",
+              email: "",
+              phone_number: "",
+              booking: ""
+            },
+            appointmentSuccess: true});
+        }
+      }).catch((error) => {
+        console.log(error);
+        this.handleFailure("An error occurred while booking appointment");
+      })
+    }
+    // console.log(formData);
+    this.showSuccessNotification();
   };
 
   showSuccessNotification = () => {
@@ -102,6 +113,9 @@ class Datlich extends React.Component {
   };
 
   render() {
+    let _validation = this.state.validation;
+		let {values} = this.state;
+		let {loading} = this.state.status;
     return (
       <React.Fragment>
         <div className="content-table">
@@ -115,48 +129,71 @@ class Datlich extends React.Component {
                 <div className="lg_content">Vui lòng điền đầy đủ các trường yêu cầu</div>
               </div>
             </div>
-            <div className="frame">
-              <div className="frame_text">
-                <form className="appointment_form">
-                  <div className="colum">
-                      <input
-                      onChange={this.handleOnChange}
-                      value={this.state.full_name}
-                      className="input_name"
-                      type="text"
-                      name="full_name"
-                      required
-                      placeholder="Your Full Name *"/>
-
-                      <input
-                      onChange={this.handleOnChange}
-                      value={this.state.email}
-                      className="input_name"
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="Your Email *"/>
-
-                      <input
-                      onChange={this.handleOnChange}
-                      value={this.state.phone_number}
-                      className="input_name"
-                      type="tel"
-                      name="phone_number"
-                      required
-                      placeholder="Your Phone Number *"/>
-                  </div>
-                  <div className="bottom">
-                    <button
-                    onClick={this.handleSubmit}
-                    type="submit"
-                    form="appointment_form"
-                    className="btn_submit"
-                    >Gửi</button>
-                  </div>
-                </form>
+            <form id="appointment-form" onSubmit={this.handleSubmit}>
+              <div className="info">
+              <div className="column">
+                <div className="col-md-12 mb-4">
+                  <input 
+                    onChange={this.handleOnChange}
+                    value={values.full_name || ""}
+                    className="input_name"
+                    type="text"
+                    name="full_name"
+                    required
+                    placeholder="Your Full Name *"/>
+                </div>
+                <div className="col-md-12 mb-4">
+                    <input
+                    onChange={this.handleOnChange}
+                    value={values.email || ""}
+                    className="input_name"
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="Your Email *"/>
+                </div>
+                <div className="col-md-12 mb-4">
+                    <input
+                    onChange={this.handleOnChange}
+                    value={values.phone_number || ""}
+                    className="input_name"
+                    type="number"
+                    name="phone_number"
+                    required
+                    placeholder="Your Phone Number *"/>
+                </div>
+                <div className="col-md-12 mb-4">
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+										<Stack spacing={3}>
+											<DatePicker
+												value={values?.booking??""}
+												// maxDate={moment().endOf('y').subtract(1,'days')}
+												minDate={moment().endOf('y').subtract(123,'y')}
+												inputFormat="yyyy/MM/dd"
+												inputProps={{ placeholder: "Thời gian khám" }}
+                        onChange={(v) => {
+                          this.setState({ values: {...this.state.values, booking: v}});
+                          }}
+															renderInput={(params) => {
+																params.inputProps.disabled = true;
+																return <TextField
+																name= "booking"
+																{...params}
+															/>
+															}}
+														/>
+										</Stack>
+									</LocalizationProvider>
+                  {/* {_validation.booking && <p className="text-error">{_validation.booking}</p>} */}
+                </div>
               </div>
-            </div>
+              <div className="bottom">
+                    <Button disabled={(loading == true ? true : false)} type="submit" variant="contained"
+                    className="btn_submit"
+                    >Gửi</Button>
+                  </div>
+              </div>
+            </form>
           </div>
         </div>
       </React.Fragment>

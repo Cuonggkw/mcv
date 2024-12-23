@@ -34,6 +34,9 @@ class List extends React.Component {
         <ListLayout
           nameDisplay={"Quản lý người dùng"}
           isBtnAdd={true}
+          search={true}
+          search_fields = {"email"}
+          // isBtnFilter={true}
           maxWidthPopup="lg"
           columns={[
             { key: "email", label: "Email", type: "text" },

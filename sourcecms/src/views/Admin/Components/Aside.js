@@ -187,7 +187,6 @@ class Aside extends React.Component {
 
             <div className={styles.asideScroll}>
               <PerfectScrollbar>
-                {/* <div>hello</div> */}
                 {typeof menu !== "undefined" &&
                   Object.keys(menu).length > 0 &&
                   Object.entries(menu).map(([k0, v0]) => (

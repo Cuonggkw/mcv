@@ -34,7 +34,10 @@ class List extends React.Component {
         <ListLayout
           nameDisplay={"Quản lý doanh mục"}
           isBtnAdd={true}
+          search={true}
+          search_fields = {"name"}
           maxWidthPopup="lg"
+          isBtnFilter={true}
           columns={[
             { key: "name", label: "Tên doanh mục", type: "text" },
             { key: "parent_id", label: "Số danh mục", type: "number" },

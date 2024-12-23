@@ -310,14 +310,15 @@ module.exports = class Builder {
       }
 
       if (_search != "") {
+        console.log(_search);
         if (Array.isArray(_search) == false) {
           let _parser = _search.split("|");
-          if (_parser[1].indexOf(".") == -1)
+          console.log(_parser);
+          if (_parser[1].indexOf(".") === -1)
             _parser[1] = this.tb + "." + _parser[1];
           let searchQuery = `${
             whereQuery ? "" : `WHERE (`
           } ${_parser[1].replace(/,/g, " LIKE ? OR ")} LIKE ? )`;
-
           whereQuery = whereQuery
             ? `${whereQuery} AND ( ${searchQuery}`
             : `${whereQuery} ${searchQuery}`;

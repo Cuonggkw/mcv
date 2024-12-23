@@ -18,6 +18,11 @@ import Image from "next/image";
 //import Notification from '@views/Default/Components/Notification';
 import User from "@views/Default/Components/User";
 import { fetchApi, postApi, changeToSlug } from "@helpers/Common";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import {IconButton,Button, TextField, Stack, Select, MenuItem} from '@mui/material';
+import moment from "moment";
 
 
 /* Package style */
@@ -30,7 +35,7 @@ class Header extends React.Component {
       bgTransparent: true,
       item: [{ type: "normal" }, { type: "social" }, { type: "address" }],
       isOpen: false,
-      value: "",
+      values: "",
       suggestion: [],
       linkSubmit: "",
       appointmentSuccess: false,
@@ -90,30 +95,33 @@ class Header extends React.Component {
 
     handleSubmit = (event) => {
       event.preventDefault();
-      const {full_name, email, phone_number} = this.state;
-      const formData = {
-        full_name: full_name,
-        email: email,
-        phone_number: phone_number,
-      };
-      console.log(formData);
-      this.setState({
-        full_name: "",
-        email: "",
-        phone_number: ""
-      });
-  
-     postApi(process.env.API_URL + "save-contact", formData).then((res) => {
+      if(this._isMounted){
+        let formData = {
+              full_name: this.state.values.full_name,
+              email: this.state.values.email,
+              phone_number: this.state.values.phone_number,
+              booking: this.state.values.booking != null ? moment(this.state.values.booking).format("YYYY-MM-DD") : "",
+        };
+        // let _validation = validationForm({...formData},'profile');
+        this._isMounted && postApi(process.env.API_URL + "save-contact", formData).then((res) => {
         if(res?.response?.data?.status === "error"){
-          this.handleFailure(res?.response?.data?.errors?.[0]?.msg ?? "Appointment booking failed");
-        }else{
-          this.handleSucces("Appointment booked successfully");
-          this.setState({appointmentSuccess: true});
-        }
-      }).catch((error) => {
-        console.log(error);
-        this.handleFailure("An error occurred while booking appointment");
-      })
+                this.handleFailure(res?.response?.data?.errors?.[0]?.msg ?? "Appointment booking failed");
+        }else {
+              this.handleSucces("Appointment booked successfully");
+              this.setState({
+              values:{
+                full_name: "",
+                email: "",
+                phone_number: "",
+                booking: ""
+                },
+              appointmentSuccess: true});
+          }
+          }).catch((error) => {
+            console.log(error);
+            this.handleFailure("An error occurred while booking appointment");
+          });
+      }
     };
   
 
@@ -130,9 +138,8 @@ class Header extends React.Component {
   };
 
   handleOnChange = (e)=> {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+    let _value = e.target.type==="checkbox" ? e.target.checked : e.target.value;
+      this.setState({values: {...this.state.values,[e.target.name] : _value}});
   };
 
   render() {
@@ -221,34 +228,59 @@ class Header extends React.Component {
                           </div>
                           <div className="frame">
                             <div className="frame_text">
-                              <form className="appointment_form">
-                                <div className="colum">
-                                  <input
-                                  onChange={this.handleOnChange}
-                                  value={this.state.full_name}
-                                  className="input_name"
-                                  type="text"
-                                  name="full_name"
-                                  required
-                                  placeholder="Your Full Name *"/>
-
-                                  <input
-                                  onChange={this.handleOnChange}
-                                  value={this.state.email}
-                                  className="input_name"
-                                  type="email"
-                                  name="email"
-                                  required
-                                  placeholder="Your Email *"/>
-
-                                  <input
-                                  onChange={this.handleOnChange}
-                                  value={this.state.phone_number}
-                                  className="input_name"
-                                  type="tel"
-                                  name="phone_number"
-                                  required
-                                  placeholder="Your Phone Number *"/>
+                            <form autoComplete="off" onSubmit={this.handleSubmit}>
+                              <div className="info">
+                                <div className="column">
+                                  <div className="col-md-12 mb-4">
+                                    <input 
+                                      onChange={this.handleOnChange}
+                                      value={this.state.full_name}
+                                      className="input_name"
+                                      type="text"
+                                      name="full_name"
+                                      required
+                                      placeholder="Your Full Name *"/>
+                                  </div>
+                                  <div className="col-md-12 mb-4">
+                                    <input
+                                      onChange={this.handleOnChange}
+                                      value={this.state.email}
+                                      className="input_name"
+                                      type="email"
+                                      name="email"
+                                      required
+                                      placeholder="Your Email *"/>
+                                  </div>
+                                  <div className="col-md-12 mb-4">
+                                    <input
+                                      onChange={this.handleOnChange}
+                                      value={this.state.phone_number}
+                                      className="input_name"
+                                      type="number"
+                                      name="phone_number"
+                                      required
+                                      placeholder="Your Phone Number *"/>
+                                  </div>
+                                  <div className="col-md-12 mb-4">
+                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+										                  <Stack spacing={3}>
+											                  <DatePicker
+												                  value={this.state.booking}
+												                  // maxDate={moment().endOf('y').subtract(1,'days')}
+												                  minDate={moment().endOf('y').subtract(123,'y')}
+												                  inputFormat="yyyy/MM/dd"
+												                  inputProps={{ placeholder: "Thời gian khám" }}
+                                          onChange={(v) => {this.setState({ values: {...this.state.values, booking: v}})}}
+															            renderInput={(params) => {params.inputProps.disabled = true;
+																          return <TextField
+																          name= "booking"
+																          {...params}
+															            />
+															            }}
+														            />
+										                  </Stack>
+									                  </LocalizationProvider>
+                                  </div>
                                 </div>
                                 <div className="bottom">
                                   <button
@@ -258,7 +290,8 @@ class Header extends React.Component {
                                   className="btn_submit"
                                   >Gửi</button>
                                 </div>
-                              </form>
+                              </div>
+                            </form>     
                             </div>
                           </div>
                           </div>
@@ -297,6 +330,7 @@ const handleSubmit = (event) => {
     fullName: formData.get("full_name"),
     phoneNumber: formData.get("phone_number"),
     email: formData.get("email"),
+    booking: formData.get("booking"),
   });
 }
 

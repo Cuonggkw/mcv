@@ -34,6 +34,7 @@ class List extends React.Component {
         <ListLayout
           nameDisplay={"Quản lý Logs"}
           isBtnAdd={true}
+          isBtnFilter={true}
           maxWidthPopup="lg"
           columns={[
             { key: "module", label: "Module", type: "text" },

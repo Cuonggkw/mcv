@@ -145,6 +145,9 @@ class ListLayout extends React.Component {
           if (value != "") {
             switch (key) {
               case "search":
+                if (this.state.values[key])
+                _filter += "&s=" + this.state.values[key].replace(/^0+/, "") + (this.props?.search_fields ? "|" + this.props?.search_fields : "");
+              break;
               case "tags":
                 if (this.state.customSearchStatus == true) {
                   if (this.state.values[key])
@@ -155,12 +158,7 @@ class ListLayout extends React.Component {
                       this.state.values[key];
                 } else {
                   if (this.state.values[key])
-                    _filter +=
-                      "&s=" +
-                      this.state.values[key].replace(/^0+/, "") +
-                      (this.props?.search_fields
-                        ? "|" + this.props?.search_fields
-                        : "");
+                    _filter += "&s=" + this.state.values[key].replace(/^0+/, "") + (this.props?.search_fields ? "|" + this.props?.search_fields : "");
                 }
                 break;
               case "range":

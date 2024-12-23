@@ -45,11 +45,7 @@ module.exports = () => {
 
             if (_query.trim().match(/^(ALTER)/i) != null) {
               const _runQuery = _query.trim().replace(/;$/, "") + ";";
-              await _conn
-                .promise()
-                .query(_runQuery)
-                .then((resp) => resp)
-                .catch((e) => e);
+              await _conn.promise().query(_runQuery).then((resp) => resp).catch((e) => e);
             }
           });
         }

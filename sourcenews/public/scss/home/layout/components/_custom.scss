@@ -704,11 +704,11 @@ body {
   gap: 8px;
 }
 
-.appointment_form{
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+// .appointment_form{
+//   display: flex;
+//   flex-direction: column;
+//   gap: 16px;
+// }
 
 .text_time{
   font-family: Roboto;
@@ -737,7 +737,7 @@ body {
   height: 44px;
   border: 1px solid #DADCE0;
   border-radius: 8px;
-  padding-left: 10px;
+  padding: 0 10px;
 }
 
 .btn_submit{
@@ -924,4 +924,22 @@ body {
 
 .card-footer_limit{
   align-self: flex-end;
+}
+
+.support{
+  border: none !important;
+}
+
+fieldset{
+  border-color: #DADCE0 !important;
+  border-radius: 8px !important;
+}
+
+.MuiSvgIcon-root{
+  width: 2em !important;
+  height: 2em !important;
+}
+
+.MuiInputBase-input{
+  height: 1.5rem;
 }
