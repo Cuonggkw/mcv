@@ -44,8 +44,9 @@ class Datlich extends React.Component {
   }
 
   handleOnChange = (e)=> {
-    let _value = e.target.type==="checkbox" ? e.target.checked : e.target.value;
-		this.setState({values: {...this.state.values,[e.target.name] : _value}});
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
   };
   
   handleSucces = (message) => {
@@ -56,11 +57,11 @@ class Datlich extends React.Component {
     });
   };
 
-  async componentDidUpdate(prevProps, prevState) {
-    if(Object.keys(this.props.stateUser).length > 0 && Object.keys(this.state.values).length==1){
-			this.initPage();
-		}
-  }
+  // async componentDidUpdate(prevProps, prevState) {
+  //   if(Object.keys(this.props.stateUser).length > 0 && Object.keys(this.state.values).length == 1){
+	// 		this.initPage();
+	// 	}
+  // }
 
   handleFailure = (error) => {
     this.setState({
@@ -72,36 +73,32 @@ class Datlich extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if(this._isMounted){
-      let formData = {
-        full_name: this.state.values.full_name,
-        email: this.state.values.email,
-        phone_number: this.state.values.phone_number,
+      const formData = {
+        full_name: this.state.full_name,
+        email: this.state.email,
+        phone_number: this.state.phone_number,
         booking: this.state.values.booking != null ? moment(this.state.values.booking).format("YYYY-MM-DD") : "",
       };
-      // let _validation = validationForm({...formData},'profile');
+      this.showSuccessNotification();
+      this.setState({
+        full_name: "",
+        email: "",
+        phone_number: "",
+        values: { booking: null },
+      })
 
       this._isMounted && postApi(process.env.API_URL + "save-contact", formData).then((res) => {
         if(res?.response?.data?.status === "error"){
           this.handleFailure(res?.response?.data?.errors?.[0]?.msg ?? "Appointment booking failed");
         }else{
           this.handleSucces("Appointment booked successfully");
-          this.setState({
-            values:{
-              full_name: "",
-              email: "",
-              phone_number: "",
-              booking: ""
-            },
-            appointmentSuccess: true});
+          this.setState({appointmentSuccess: true});
         }
       }).catch((error) => {
         console.log(error);
         this.handleFailure("An error occurred while booking appointment");
       })
-    }
     // console.log(formData);
-    this.showSuccessNotification();
   };
 
   showSuccessNotification = () => {
@@ -113,7 +110,6 @@ class Datlich extends React.Component {
   };
 
   render() {
-    let _validation = this.state.validation;
 		let {values} = this.state;
 		let {loading} = this.state.status;
     return (
@@ -129,13 +125,13 @@ class Datlich extends React.Component {
                 <div className="lg_content">Vui lòng điền đầy đủ các trường yêu cầu</div>
               </div>
             </div>
-            <form id="appointment-form" onSubmit={this.handleSubmit}>
+            <form autoComplete="off" onSubmit={this.handleSubmit}>
               <div className="info">
               <div className="column">
                 <div className="col-md-12 mb-4">
                   <input 
                     onChange={this.handleOnChange}
-                    value={values.full_name || ""}
+                    value={this.state.full_name}
                     className="input_name"
                     type="text"
                     name="full_name"
@@ -145,7 +141,7 @@ class Datlich extends React.Component {
                 <div className="col-md-12 mb-4">
                     <input
                     onChange={this.handleOnChange}
-                    value={values.email || ""}
+                    value={this.state.email}
                     className="input_name"
                     type="email"
                     name="email"
@@ -155,7 +151,7 @@ class Datlich extends React.Component {
                 <div className="col-md-12 mb-4">
                     <input
                     onChange={this.handleOnChange}
-                    value={values.phone_number || ""}
+                    value={this.state.phone_number}
                     className="input_name"
                     type="number"
                     name="phone_number"

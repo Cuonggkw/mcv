@@ -27,34 +27,34 @@ import moment from "moment";
 
 /* Package style */
 import CssBaseline from "@mui/material/CssBaseline";
+import { values } from "lodash";
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
+    this._isMounted = false;
     this.state = {
+      appointmentSuccess: false,
       bgTransparent: true,
       item: [{ type: "normal" }, { type: "social" }, { type: "address" }],
       isOpen: false,
-      values: "",
+      values: {},
       suggestion: [],
       linkSubmit: "",
       appointmentSuccess: false,
-      countdown: 60,
-      msg: "",
       validation: {},
       status: { loading: false },
-      // full_name: "",
-      // email: "",
-      // phone_number: ""
     };
     this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
+    this._isMounted = true;
     window.addEventListener("scroll", this.handleScroll);
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
     window.removeEventListener("scroll", this.handleScroll);
   }
 
@@ -66,15 +66,19 @@ class Header extends React.Component {
     }
   };
 
-  handleClickOutSide = () => {
-    let _status = this.props.stateStatus.open;
-    if (
-      _status.search == true ||
-      _status.notification == true ||
-      _status.user == true
-    ) {
-      this.props.resetOpen();
-    }
+
+  handleOpen = () => {
+    this.setState({ isOpen: true });
+  };
+
+  handleClose = () => {
+    this.setState({ isOpen: false });
+  };
+
+  handleOnChange = (e)=> {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
   };
 
   handleFailure = (error) => {
@@ -83,66 +87,50 @@ class Header extends React.Component {
       errorMessage: error,
       isOpen: true,
     })
-  };
+  }
 
-  handleSucces = (message) => {
-    this.setState({
-      successMessage: message,
-      errorMessage: null,
-      isOpen: true,
-    });
-  };
-
-    handleSubmit = (event) => {
-      event.preventDefault();
-      if(this._isMounted){
-        let formData = {
-              full_name: this.state.values.full_name,
-              email: this.state.values.email,
-              phone_number: this.state.values.phone_number,
-              booking: this.state.values.booking != null ? moment(this.state.values.booking).format("YYYY-MM-DD") : "",
-        };
-        // let _validation = validationForm({...formData},'profile');
-        this._isMounted && postApi(process.env.API_URL + "save-contact", formData).then((res) => {
+  handleSubmit = (event) => {
+    if(this._isMounted){
+    event.preventDefault();
+      const formData = {
+        full_name: this.state.full_name,
+        email: this.state.email,
+        phone_number: this.state.phone_number,
+        booking: this.state.values.booking != null ? moment(this.state.values.booking).format("YYYY-MM-DD") : "",
+      };
+      console.log(formData);
+      this.showSuccessNotification();
+      this.setState({
+        full_name: "",
+        email: "",
+        phone_number: "",
+        values: { booking: null },
+        isOpen: false,
+      })
+      this._isMounted && postApi(process.env.API_URL + "save-contact", formData).then((res) => {
         if(res?.response?.data?.status === "error"){
-                this.handleFailure(res?.response?.data?.errors?.[0]?.msg ?? "Appointment booking failed");
-        }else {
-              this.handleSucces("Appointment booked successfully");
-              this.setState({
-              values:{
-                full_name: "",
-                email: "",
-                phone_number: "",
-                booking: ""
-                },
-              appointmentSuccess: true});
-          }
-          }).catch((error) => {
-            console.log(error);
-            this.handleFailure("An error occurred while booking appointment");
-          });
-      }
+          this.handleFailure(res?.response?.data?.errors?.[0]?.msg ?? "Appointment booking failed");
+        }else{
+          this.setState({appointmentSuccess: true});
+        }
+      }).catch((error) => {
+        console.log(error);
+      })
+    // console.log(formData);
     };
-  
-
-  handleClose = () => {
-    this.setState({
-      isOpen: false,
-    })
   };
 
-  handleOpen = () => {
-    this.setState({
-      isOpen: true
+  showSuccessNotification = () => {
+    this.setState({successNotificationVisible: true}, () => {
+      setTimeout(() => {
+        this.setState({successNotificationVisible: false});
+      }, 3000);
     })
-  };
-
-  handleOnChange = (e)=> {
-    let _value = e.target.type==="checkbox" ? e.target.checked : e.target.value;
-      this.setState({values: {...this.state.values,[e.target.name] : _value}});
   };
 
   render() {
+    let {values} = this.state;
+		let {loading} = this.state.status;
     return (
       <React.Fragment>
         <CssBaseline />
@@ -209,7 +197,7 @@ class Header extends React.Component {
                     <svg className="booking_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M96 32l0 32L48 64C21.5 64 0 85.5 0 112l0 48 448 0 0-48c0-26.5-21.5-48-48-48l-48 0 0-32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 32L160 64l0-32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192L0 192 0 464c0 26.5 21.5 48 48 48l352 0c26.5 0 48-21.5 48-48l0-272z" /></svg>
                     <span className="booking_title">Đặt lịch khám</span>
                   </button>
-                    <Modal
+                  <Modal
                     open={this.state.isOpen}
                     onClose={this.handleClose}
                     aria-labelledby="modal-modal-title"
@@ -228,7 +216,7 @@ class Header extends React.Component {
                           </div>
                           <div className="frame">
                             <div className="frame_text">
-                            <form autoComplete="off" onSubmit={this.handleSubmit}>
+                            <form  autoComplete="off" onSubmit={this.handleSubmit}>
                               <div className="info">
                                 <div className="column">
                                   <div className="col-md-12 mb-4">
@@ -265,7 +253,7 @@ class Header extends React.Component {
                                     <LocalizationProvider dateAdapter={AdapterDateFns}>
 										                  <Stack spacing={3}>
 											                  <DatePicker
-												                  value={this.state.booking}
+												                  value={values?.booking??""}
 												                  // maxDate={moment().endOf('y').subtract(1,'days')}
 												                  minDate={moment().endOf('y').subtract(123,'y')}
 												                  inputFormat="yyyy/MM/dd"
@@ -283,20 +271,16 @@ class Header extends React.Component {
                                   </div>
                                 </div>
                                 <div className="bottom">
-                                  <button
-                                  onClick={this.handleSubmit}
-                                  type="submit"
-                                  form="appointment_form"
-                                  className="btn_submit"
-                                  >Gửi</button>
+                                   <Button type="submit" variant="contained" disabled={(loading == true ? true : false)}
+                                    className="btn_submit">Gửi</Button>
                                 </div>
                               </div>
                             </form>     
                             </div>
                           </div>
                           </div>
-                        </div>
-                    </Modal>
+                      </div>
+                  </Modal>
                 </div>
               </div>
           </header>

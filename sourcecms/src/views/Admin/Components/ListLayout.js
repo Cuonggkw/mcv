@@ -64,7 +64,7 @@ class ListLayout extends React.Component {
       isCheckedAll: false,
       isCheck: [],
       isSort: "desc",
-      isSorting: props.sort ? props.sort : "created_at",
+      isSorting: (props.sort) ? props.sort : "created_at",
       isDelete: false,
       isShare: false,
       isSendInvitation: false,
@@ -132,8 +132,7 @@ class ListLayout extends React.Component {
         let _filter = "";
         let _fq = "";
         let _fqRange = "";
-        if (filter?.page && filter?.page > 0)
-          await this.setState({ page: filter?.page });
+        if (filter?.page && filter?.page > 0) await this.setState({ page: filter?.page });
         _filter += "?sort=" + (this.state.isSort == "desc" ? "-" : "") + this.state.isSorting;
         _filter += "&limit=" + this.state.limit;
         _filter += "&offset=" + (this.state.page - 1) * this.state.limit;

@@ -397,13 +397,8 @@ module.exports = class Builder {
 
       if (_sort != "") {
         sortQuery = ``;
-
         _sort.split(",").map((val) => {
-          const value =
-            val.indexOf(".") > -1
-              ? val.replace(/^-/, "").trim()
-              : `${this.tb}.` + val.replace(/^-/, "").trim();
-
+          const value = val.indexOf(".") > -1 ? val.replace(/^-/, "").trim() : `${this.tb}.` + val.replace(/^-/, "").trim();
           if (new RegExp("^-").test(val) == true) {
             sortQuery = sortQuery
               ? `${sortQuery}, ${value} DESC`
