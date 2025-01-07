@@ -6,11 +6,7 @@ const path = require("path");
 require("dotenv").config({
   path: path.join(
     __dirname,
-    ".env" +
-      (process.env.NODE_ENV === "production" ||
-      process.env.NODE_ENV === "staging"
-        ? "." + process.env.NODE_ENV
-        : ".development")
+    ".env" + (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "staging" ? "." + process.env.NODE_ENV : ".development")
   ),
 });
 const express = require("express");

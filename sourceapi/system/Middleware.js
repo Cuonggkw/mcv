@@ -3,11 +3,7 @@
 class Middleware {
   validateContentType = (req, res, next) => {
     return (req, res, next) => {
-      if (
-        req.method === "POST" ||
-        req.method === "PUT" ||
-        req.method === "PATCH"
-      ) {
+      if (req.method === "POST" || req.method === "PUT" || req.method === "PATCH") {
         if (req.is("application/json") || req.is("multipart/form-data")) {
           next();
         } else {

@@ -84,8 +84,8 @@ class Datlich extends React.Component {
         full_name: "",
         email: "",
         phone_number: "",
-        values: { booking: null },
-      })
+        values: { booking: "Thời gian khám" },
+      });
 
       this._isMounted && postApi(process.env.API_URL + "save-contact", formData).then((res) => {
         if(res?.response?.data?.status === "error"){
@@ -115,7 +115,7 @@ class Datlich extends React.Component {
     return (
       <React.Fragment>
         <div className="content-table">
-          <div className="table">
+          <div className="table-title">
             <div className="text_table">
               <div className="table_image">
                 <img alt="" src="/images/calendar1.png" />
@@ -125,10 +125,11 @@ class Datlich extends React.Component {
                 <div className="lg_content">Vui lòng điền đầy đủ các trường yêu cầu</div>
               </div>
             </div>
-            <form autoComplete="off" onSubmit={this.handleSubmit}>
+            <div className="booking-form">
+              <form autoComplete="off" onSubmit={this.handleSubmit}>
               <div className="info">
               <div className="column">
-                <div className="col-md-12 mb-4">
+                <div className="input-placeholder mb-4">
                   <input 
                     onChange={this.handleOnChange}
                     value={this.state.full_name}
@@ -138,7 +139,7 @@ class Datlich extends React.Component {
                     required
                     placeholder="Your Full Name *"/>
                 </div>
-                <div className="col-md-12 mb-4">
+                <div className="input-placeholder mb-4">
                     <input
                     onChange={this.handleOnChange}
                     value={this.state.email}
@@ -148,7 +149,7 @@ class Datlich extends React.Component {
                     required
                     placeholder="Your Email *"/>
                 </div>
-                <div className="col-md-12 mb-4">
+                <div className="input-placeholder mb-4">
                     <input
                     onChange={this.handleOnChange}
                     value={this.state.phone_number}
@@ -163,7 +164,7 @@ class Datlich extends React.Component {
 										<Stack spacing={3}>
 											<DatePicker
 												value={values?.booking??""}
-												// maxDate={moment().endOf('y').subtract(1,'days')}
+												maxDate={moment().endOf('y').subtract(1,'days')}
 												minDate={moment().endOf('y').subtract(123,'y')}
 												inputFormat="yyyy/MM/dd"
 												inputProps={{ placeholder: "Thời gian khám" }}
@@ -189,7 +190,8 @@ class Datlich extends React.Component {
                     >Gửi</Button>
                   </div>
               </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </React.Fragment>

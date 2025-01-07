@@ -44,6 +44,7 @@ class Header extends React.Component {
       appointmentSuccess: false,
       validation: {},
       status: { loading: false },
+      bgTransparent: true
     };
     this.handleScroll = this.handleScroll.bind(this);
   }
@@ -98,13 +99,12 @@ class Header extends React.Component {
         phone_number: this.state.phone_number,
         booking: this.state.values.booking != null ? moment(this.state.values.booking).format("YYYY-MM-DD") : "",
       };
-      console.log(formData);
       this.showSuccessNotification();
       this.setState({
         full_name: "",
         email: "",
         phone_number: "",
-        values: { booking: null },
+        values: { booking: "Thời gian khám" },
         isOpen: false,
       })
       this._isMounted && postApi(process.env.API_URL + "save-contact", formData).then((res) => {
@@ -128,16 +128,21 @@ class Header extends React.Component {
     })
   };
 
+  openMenu = () => {
+  }
+
   render() {
-    let {values} = this.state;
+    let {values, test} = this.state;
 		let {loading} = this.state.status;
     return (
       <React.Fragment>
         <CssBaseline />
-        <HideOnScroll {...this.props}>
-          <header>
+          <AppBar id="nl-header" className={this.state.bgTransparent == true ? 'transparent' : ''}>
+            <Toolbar>
+              <div className={`menu-srcol ${this.state.bgTransparent == true ? 'transparent-header' : 'non-transparent-header'}`}>
               <div className="topBar">
-                <div className="frame_2">
+                <div className="wrapper-main">
+                  <div className="frame_2">
                   <div className="phone">
                   <svg className="phone_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497.4 361.8l-112-48a24 24 0 0 0 -28 6.9l-49.6 60.6A370.7 370.7 0 0 1 130.6 204.1l60.6-49.6a23.9 23.9 0 0 0 6.9-28l-48-112A24.2 24.2 0 0 0 122.6 .6l-104 24A24 24 0 0 0 0 48c0 256.5 207.9 464 464 464a24 24 0 0 0 23.4-18.6l24-104a24.3 24.3 0 0 0 -14-27.6z"/></svg>
                     <div className="phone_number">+84 1234 56789</div>
@@ -146,8 +151,8 @@ class Header extends React.Component {
                   <svg className="time_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z" /></svg>
                   <div className="time_week">Thứ 2 - Chủ Nhật 9:00 - 20:00</div>
                   </div>
-                </div>
-                <div className="frame_3">
+                  </div>
+                  <div className="frame_3">
                   <div className="location">
                   <svg className="location_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M172.3 501.7C27 291 0 269.4 0 192 0 86 86 0 192 0s192 86 192 192c0 77.4-27 99-172.3 309.7-9.5 13.8-29.9 13.8-39.5 0zM192 272c44.2 0 80-35.8 80-80s-35.8-80-80-80-80 35.8-80 80 35.8 80 80 80z" /></svg>
                   <Link href='/news'><a title="Địa chỉ">37 đường 70 Yên Xá, Tân Triều, Thanh Trì, Hà Nội</a></Link>
@@ -167,124 +172,140 @@ class Header extends React.Component {
 
                   <svg className="networking_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z" /></svg>
                   </div>
+                  </div>
                 </div>
               </div>
-              <div className="menuBar">
-                <img className="logo_andat" alt="" loading="eager" src="/images/logo_andat.png"/>
-                <div className="menu">
-                  <ul className="menu-list">
-                  <li className="list-frame"><Link href="/news" className="list-title"><a>Trang chủ </a></Link></li>
-                  <li className="list-frame gap">
-                    <a href="#" className="list-title">Giới thiệu</a>
-                    <svg className="menu_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" /></svg>
-                  </li>
-                  <li className="list-frame gap">
-                    <a href="#" className="list-title">Dịch vụ</a>
-                    <svg className="menu_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" /></svg>
-                  </li>
-                  <li className="list-frame"><a href="#" className="list-title">Bác sĩ</a></li>
-                  <li className="list-frame gap">
-                    <a href="#" className="list-title">Cơ sở hạ tầng</a>
-                    <svg className="menu_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" /></svg>
-                  </li>
-                  <li className="list-frame"><a href="#" className="list-title">Tin tức</a></li>
-                  <li className="list-frame"><a href="#" className="list-title">Hỗ trợ khách hàng</a></li>
-                  <li className="list-frame"><a href="#" className="list-title">Liên hệ</a></li>
-                </ul>
-                </div>
-                <div className="btn-book">
-                  <button className="booking" onClick={this.handleOpen}>
-                    <svg className="booking_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M96 32l0 32L48 64C21.5 64 0 85.5 0 112l0 48 448 0 0-48c0-26.5-21.5-48-48-48l-48 0 0-32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 32L160 64l0-32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192L0 192 0 464c0 26.5 21.5 48 48 48l352 0c26.5 0 48-21.5 48-48l0-272z" /></svg>
-                    <span className="booking_title">Đặt lịch khám</span>
-                  </button>
-                  <Modal
-                    open={this.state.isOpen}
-                    onClose={this.handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                    >
-                      <div className="content_table">
-                        <div className="table">
-                          <div className="text_table">
-                            <div className="table_image">
-                              <img alt="" src="/images/calendar1.png" />
-                            </div>
-                            <div className="infor_table">
-                              <div className="text_time">Đặt hẹn khám bệnh</div>
-                              <div className="lg_content">Vui lòng điền đầy đủ các trường yêu cầu</div>
-                            </div>
-                          </div>
-                          <div className="frame">
-                            <div className="frame_text">
-                            <form  autoComplete="off" onSubmit={this.handleSubmit}>
-                              <div className="info">
-                                <div className="column">
-                                  <div className="col-md-12 mb-4">
-                                    <input 
-                                      onChange={this.handleOnChange}
-                                      value={this.state.full_name}
-                                      className="input_name"
-                                      type="text"
-                                      name="full_name"
-                                      required
-                                      placeholder="Your Full Name *"/>
+              <div className="nl-header_mastehead">
+                <div className="menuBar">
+                  <div className="header-menu">
+                    <img className="logo_andat" alt="" loading="eager" src="/images/logo_andat.png"/>
+                    <div id="guide__nav" className="guide_render d-lg-block">
+                      <nav className="guide-menu">
+                        <ul className="menu-list">
+                          <li className="list-frame"><Link href="/news" className="list-title"><a>Trang chủ</a></Link></li>
+                          <li className="list-frame gap">
+                            <a href="#" className="list-title">Giới thiệu</a>
+                            <svg className="menu_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128128z" /></svg>
+                          </li>
+                          <li className="list-frame gap">
+                            <a href="#" className="list-title">Dịch vụ</a>
+                            <svg className="menu_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128128z" /></svg>
+                          </li>
+                          <li className="list-frame"><a href="#" className="list-title">Bác sĩ</a></li>
+                          <li className="list-frame gap">
+                            <a href="#" className="list-title">Cơ sở hạ tầng</a>
+                            <svg className="menu_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" /></svg>
+                          </li>
+                          <li className="list-frame"><a href="#" className="list-title">Tin tức</a></li>
+                          <li className="list-frame"><a href="#" className="list-title">Hỗ trợ khách hàng</a></li>
+                          <li className="list-frame"><a href="#" className="list-title">Liên hệ</a></li>
+                        </ul>
+                      </nav>
+                      <div className="btn-book">
+                        <button className="booking" onClick={this.handleOpen}>
+                          <svg className="booking_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M96 32l0 32L48 64C21.5 64 0 85.5 0 112l0 48 448 0 0-48c0-26.5-21.5-48-48-48l-48 0 0-32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 32L160 64l0-32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192L0 192 0 464c0 26.5 21.5 48 48 48l352 0c26.5 0 48-21.5 48-48l0-272z" /></svg>
+                          <span className="booking_title">Đặt lịch khám</span>
+                        </button>
+                        <Modal
+                          open={this.state.isOpen}
+                          onClose={this.handleClose}
+                          aria-labelledby="modal-modal-title"
+                          aria-describedby="modal-modal-description"
+                          closeAfterTransition
+                        >
+                          <div className="content_table">
+                            <div className="table">
+                              <IconButton color="primary" aria-label="eye" component="span" className="close" onClick={this.handleClose}>
+                                <i className="far fa-times"></i>
+                              </IconButton>
+                              <div className="form-register">
+                                <div className="text_table">
+                                  <div className="table_image">
+                                    <img alt="" src="/images/calendar1.png" />
                                   </div>
-                                  <div className="col-md-12 mb-4">
-                                    <input
-                                      onChange={this.handleOnChange}
-                                      value={this.state.email}
-                                      className="input_name"
-                                      type="email"
-                                      name="email"
-                                      required
-                                      placeholder="Your Email *"/>
-                                  </div>
-                                  <div className="col-md-12 mb-4">
-                                    <input
-                                      onChange={this.handleOnChange}
-                                      value={this.state.phone_number}
-                                      className="input_name"
-                                      type="number"
-                                      name="phone_number"
-                                      required
-                                      placeholder="Your Phone Number *"/>
-                                  </div>
-                                  <div className="col-md-12 mb-4">
-                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-										                  <Stack spacing={3}>
-											                  <DatePicker
-												                  value={values?.booking??""}
-												                  // maxDate={moment().endOf('y').subtract(1,'days')}
-												                  minDate={moment().endOf('y').subtract(123,'y')}
-												                  inputFormat="yyyy/MM/dd"
-												                  inputProps={{ placeholder: "Thời gian khám" }}
-                                          onChange={(v) => {this.setState({ values: {...this.state.values, booking: v}})}}
-															            renderInput={(params) => {params.inputProps.disabled = true;
-																          return <TextField
-																          name= "booking"
-																          {...params}
-															            />
-															            }}
-														            />
-										                  </Stack>
-									                  </LocalizationProvider>
+                                  <div className="infor_table">
+                                    <div className="text_time">Đặt hẹn khám bệnh</div>
+                                    <div className="lg_content">Vui lòng điền đầy đủ các trường yêu cầu</div>
                                   </div>
                                 </div>
+                                <div className="frame">
+                                  <div className="frame_text">
+                                    <form  autoComplete="off" onSubmit={this.handleSubmit}>
+                                      <div className="info">
+                                        <div className="column">
+                                          <div className="input-placeholder mb-4">
+                                            <input 
+                                              onChange={this.handleOnChange}
+                                              value={this.state.full_name}
+                                              className="input_name"
+                                              type="text"
+                                              name="full_name"
+                                              required
+                                              placeholder="Họ và tên *"/>
+                                          </div>
+                                          <div className="input-placeholder mb-4">
+                                            <input
+                                              onChange={this.handleOnChange}
+                                              value={this.state.email}
+                                              className="input_name"
+                                              type="email"
+                                              name="email"
+                                              required
+                                              placeholder="Email *"/>
+                                          </div>
+                                          <div className="input-placeholder mb-4">
+                                            <input
+                                              onChange={this.handleOnChange}
+                                              value={this.state.phone_number}
+                                              className="input_name"
+                                              type="number"
+                                              name="phone_number"
+                                              required
+                                              placeholder="Số điện thoại *"/>
+                                          </div>
+                                          <div className="col-md-12 mb-4">
+                                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+										                          <Stack spacing={3}>
+											                          <DatePicker
+												                          value={values?.booking??""}
+												                          // maxDate={moment().endOf('y').subtract(1,'days')}
+												                          minDate={moment().endOf('y').subtract(123,'y')}
+												                          inputFormat="yyyy/MM/dd"
+												                          inputProps={{ placeholder: "Thời gian khám" }}
+                                                  onChange={(v) => {this.setState(
+                                                    { values: {...this.state.values, booking: v}}
+                                                  )}}
+															                    renderInput={(params) => {params.inputProps.disabled = true;
+																                  return <TextField
+																                  name= "booking"
+																                  {...params}
+															                    />
+															                  }}
+														                    />
+										                          </Stack>
+									                          </LocalizationProvider>
+                                          </div>
+                                        </div>
                                 <div className="bottom">
                                    <Button type="submit" variant="contained" disabled={(loading == true ? true : false)}
                                     className="btn_submit">Gửi</Button>
                                 </div>
+                                      </div>
+                                    </form>     
+                                  </div>
+                                </div>
                               </div>
-                            </form>     
                             </div>
                           </div>
-                          </div>
+                        </Modal>
                       </div>
-                  </Modal>
+                    </div>
+                  </div>
                 </div>
               </div>
-          </header>
-        </HideOnScroll>
+              </div>
+            </Toolbar>
+          </AppBar>
       </React.Fragment>
     );
   }

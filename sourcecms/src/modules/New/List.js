@@ -43,12 +43,7 @@ class List extends React.Component {
             { key: "slug", label: "Thẻ", type: "text" },
             { key: "image_url", label: "Ảnh", type: "image", cdn: process.env.API_URL + "/" },
             { key: "status", label: "Trạng thái", type: "status" },
-            {
-              key: "created_at",
-              label: "Ngày tạo",
-              type: "dateTime",
-              width: 120,
-            },
+            { key: "created_at", label: "Ngày tạo", type: "dateTime", width: 120 },
           ]}
         />
       </React.Fragment>

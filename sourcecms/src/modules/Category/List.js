@@ -32,14 +32,14 @@ class List extends React.Component {
 					data -- các trường trong update/add
 				*/}
         <ListLayout
-          nameDisplay={"Quản lý doanh mục"}
+          nameDisplay={"Quản lý danh mục"}
           isBtnAdd={true}
           search={true}
           search_fields = {"name"}
           maxWidthPopup="lg"
           isBtnFilter={true}
           columns={[
-            { key: "name", label: "Tên doanh mục", type: "text" },
+            { key: "name", label: "Tên danh mục", type: "text" },
             { key: "parent_id", label: "Số danh mục", type: "number" },
             { key: "status", label: "Trạng thái", type: "status", width: 120 },
             {

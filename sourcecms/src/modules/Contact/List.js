@@ -40,7 +40,8 @@ class List extends React.Component {
             { key: "full_name", label: "Họ và tên", type: "text" },
             { key: "email", label: "Email", type: "text" },
             { key: "phone_number", label: "Số điện thoại", type: "text" },
-            { key: "booking", label: "Đặt lịch", type: "dateTime" },
+            // { key: "booking", label: "Đặt lịch", type: "dateTime" },
+            { key: "status", label: "Trạng thái", type: "status", width: 120 },
             {
               key: "created_at",
               label: "Ngày tạo",

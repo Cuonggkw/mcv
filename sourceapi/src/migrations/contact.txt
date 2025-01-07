@@ -14,3 +14,5 @@ ALTER TABLE contacts
 ADD deleted_at TIMESTAMP DEFAULT NULL;
 ALTER TABLE contacts 
 ADD booking timestamp DEFAULT NULL;
+ALTER TABLE contacts 
+ADD status tinyint(1) DEFAULT NULL;

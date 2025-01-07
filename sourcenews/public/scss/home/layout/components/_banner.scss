@@ -2,7 +2,16 @@
 	// margin-top: 112px;
 
 	@include media-breakpoint-down(md){
-		margin-top: 0;	
+		margin-bottom: 20px;	
+	}
+
+	.nl-banner__inner{
+		position: relative;
+
+		@media screen and (max-width: 778px) {
+			margin-top: 78px;
+		}
+		
 	}
 
 	.nl-banner__inner{
@@ -118,8 +127,16 @@
 					.nl-banner__image{
 						position: relative;
 						@include media-breakpoint-down(xl){
-							padding-top: 56.25%;
+							width: 100%;
+							padding-top: 16.25%;
+							
 						}
+
+						@media screen and (max-width: 778px) {
+							padding-top: 16.25%;
+							width: 100%;
+							height: 300px;
+					 }
 
 						a{
 							display: block;
@@ -139,9 +156,7 @@
 								height: 30px;
 							}
 						}
-
 						img{
-							
 							@include media-breakpoint-up(xl){
 								width: 100%;
 								height: 300px;
@@ -161,7 +176,7 @@
 						.des-fluid{
 							// position: absolute;
 							width: 60%;
-							height: 116px;
+							height: 50px;
 							left: 20%;
 							bottom: 0px;
 							font-style: normal;
@@ -172,27 +187,27 @@
 							letter-spacing: -0.01em;
 							color: #E02401;	
 
-							@media (max-width: 1024px){
+							@media (max-width: 1199.98px){
 								width: 100%;
 								left: 0%;
+								height: 20px;
 								font-size: 1.5em;
 								line-height: 1.25em;
-								height: 2.5em;
 							}
 
 							@media (max-width: 426px){
 								width: 80%;
 								left: 0;
-								font-size: 1em;
+								font-family: Roboto;
+								font-size: 40px;
+								font-weight: 600;
 								line-height: 1.25em;
-								height: 3.5em;
-								padding-left: 10%;
-								text-shadow: 1px 1px 4px #000;
+								height: 45px;
 							}
 						}
 
 						.home-fluid{
-							position: absolute;
+							// position: absolute;
 							width: 60%;
 							left: 20%;
 							font-style: normal;
@@ -202,7 +217,12 @@
 							text-align: center;
 							letter-spacing: 0.01em;
 							color: #80868B;
-							margin-top: 30px;
+							// margin-top: 30px;
+
+							@media (max-width: 426px){
+								font-family: Roboto;
+								font-size: 16px;
+							}
 
 							span{
 								color: #0E1013;
@@ -352,6 +372,11 @@
   	justify-content: center;
   	padding: 20px; /* Khoảng cách nội dung */
 		gap: 8px;
+
+		
+		@media (max-width: 1199.98px) {
+			justify-content: center;
+		}
 	}
 
 	&.only{

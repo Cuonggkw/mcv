@@ -34,19 +34,13 @@ class List extends React.Component {
         <ListLayout
           nameDisplay={"Quản lý Logs"}
           isBtnAdd={true}
-          isBtnFilter={true}
           maxWidthPopup="lg"
           columns={[
             { key: "module", label: "Module", type: "text" },
             { key: "item_id", label: "Item", type: "text" },
             { key: "type", label: "Type", type: "text" },
             { key: "email", label: "Account", type: "text" },
-            {
-              key: "created_at",
-              label: "Ngày tạo",
-              type: "dateTime",
-              width: 120,
-            },
+            { key: "created_at", label: "Ngày tạo", type: "dateTime", width: 120 },
           ]}
         />
       </React.Fragment>

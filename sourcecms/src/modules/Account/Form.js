@@ -24,34 +24,10 @@ class Form extends React.Component {
         <FormLayout
           getData={{ role_id: "roles?limit=10000" }}
           fields={[
-            {
-              key: "email",
-              label: "Email",
-              type: "text",
-              col: "left",
-              isRequied: true,
-            },
-            {
-              key: "password",
-              label: "Mật khẩu",
-              type: "password",
-              col: "left",
-              isRequied: true,
-            },
-            {
-              key: "role_id",
-              label: "Vai trò",
-              type: "select",
-              col: "left",
-              isRequied: true,
-            },
-            {
-              key: "status",
-              label: "Trạng thái",
-              type: "status",
-              defaultValue: true,
-              col: "right",
-            },
+            { key: "email", label: "Email", type: "text", col: "left", isRequied: true },
+            { key: "password", label: "Mật khẩu", type: "password", col: "left", isRequied: true },
+            { key: "role_id", label: "Vai trò", type: "select", col: "left", isRequied: true },
+            { key: "status", label: "Trạng thái", type: "status", defaultValue: true, col: "right" },
           ]}
         />
       </>

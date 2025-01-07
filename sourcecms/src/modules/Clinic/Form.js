@@ -22,37 +22,22 @@ class Form extends React.Component {
           hideColRight={true} -- ẩn cột phải
         */}
         <FormLayout
-          // getData={{ category_id: "categories?limit=10000&fqnull=deleted_at", tag_id: "tags?limit=10000&fqnull=deleted_at" }}
+          // getData={{ specialty_id: "specialties?limit=10000&fqnull=deleted_at" }}
           fields={[
             {
-              key: "full_name",
-              label: "Họ và tên",
+              key: "name",
+              label: "Tên phòng khám",
               type: "text",
               col: "left",
               isRequied: true,
             },
-          
             {
-              key: "email",
-              label: "Email",
+              key: "address",
+              label: "Ảnh",
               type: "text",
               col: "left",
               isRequied: true,
             }, 
-            {
-              key: "phone_number",
-              label: "Số điện thoại",
-              type: "number",
-              col: "left",
-              isRequied: true,
-            },
-            {
-              key: "note",
-              label: "Ghi chú",
-              type: "text",
-              defaultValue: true,
-              col: "left",
-            },
             {
               key: "status",
               label: "Trạng thái",

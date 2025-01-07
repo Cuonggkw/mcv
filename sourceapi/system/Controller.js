@@ -162,9 +162,7 @@ module.exports = class Controller {
             let _upload;
             if (_data?.image) {
               _parse = extractBase64(_data.image.file);
-              _name = `${
-                req.url.split("/")[1]
-              }/${_year}/${_month}/${nanoid()}.${_parse.ext}`;
+              _name = `${req.url.split("/")[1]}/${_year}/${_month}/${nanoid()}.${_parse.ext}`;
               _type = `${_parse.type}/${_parse.ext}`;
               //
               _upload = await this.uploadFile(_name, _data.image.file, _type);
@@ -193,10 +191,7 @@ module.exports = class Controller {
         _data = req.body;
         _data.updated_at = new Date();
         if (_data.password)
-          _data.password = bcrypt.hashSync(
-            _data.password,
-            bcrypt.genSaltSync(12)
-          );
+          _data.password = bcrypt.hashSync(_data.password, bcrypt.genSaltSync(12));
         if (_data?.image) {
           try {
             let _infoFile;
@@ -204,9 +199,7 @@ module.exports = class Controller {
             const _year = this.moment().format("YYYY");
             const _month = this.moment().format("MM");
             const _parse = extractBase64(_infoFile.file);
-            const _name = `${
-              req.url.split("/")[1]
-            }/${_year}/${_month}/${nanoid()}.${_parse.ext}`;
+            const _name = `${req.url.split("/")[1]}/${_year}/${_month}/${nanoid()}.${_parse.ext}`;
             const _type = `${_parse.type}/${_parse.ext}`;
             const _upload = await this.uploadFile(
               _name,

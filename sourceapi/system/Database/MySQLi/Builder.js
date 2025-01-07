@@ -76,9 +76,7 @@ module.exports = class Builder {
       let updateValueQuery = "";
 
       for (const key in data) {
-        updateValueQuery = updateValueQuery
-          ? `${updateValueQuery}, ${key}=?`
-          : `${key}=?`;
+        updateValueQuery = updateValueQuery ? `${updateValueQuery}, ${key}=?` : `${key}=?`;
       }
 
       const rawUpdateQuery = `
@@ -218,10 +216,7 @@ module.exports = class Builder {
           if (_fq.length == 2) {
             const field =
               _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
-            whereByKeyQuery =
-              whereByKeyQuery.length > 6
-                ? `${whereByKeyQuery} AND ${field} = ?`
-                : `${whereByKeyQuery} ${field} = ?`;
+            whereByKeyQuery = whereByKeyQuery.length > 6 ? `${whereByKeyQuery} AND ${field} = ?` : `${whereByKeyQuery} ${field} = ?`;
             params.push(_fq[1]);
           }
         }
@@ -259,8 +254,7 @@ module.exports = class Builder {
         let _fq = _whereNotIn.split(":").map((v) => v);
 
         if (_fq.length == 2) {
-          const field =
-            _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
+          const field = _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
           whereIn = whereIn + field + ` NOT IN (?)`;
           params.push(_fq[1].split(","));
         }
@@ -269,8 +263,7 @@ module.exports = class Builder {
       if (_whereRange != "") {
         _whereRange.split(",").map((val) => {
           const _fq = val.split(":").map((v) => v);
-          const field =
-            _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
+          const field = _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
           if (_fq.length == 2) {
             const _parse = _fq[1].match(/^(gte|gt|lte|lt)/gi);
             if (_parse != null) {
@@ -293,8 +286,7 @@ module.exports = class Builder {
             .replace(":", "&")
             .split("&")
             .map((v) => v);
-          const field =
-            _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
+          const field = _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
           if (_fq.length == 2) {
             const _parse = _fq[1].match(/^(gte|gt|lte|lt)/gi);
             if (_parse != null) {
@@ -313,15 +305,12 @@ module.exports = class Builder {
         console.log(_search);
         if (Array.isArray(_search) == false) {
           let _parser = _search.split("|");
-          console.log(_parser);
           if (_parser[1].indexOf(".") === -1)
             _parser[1] = this.tb + "." + _parser[1];
           let searchQuery = `${
             whereQuery ? "" : `WHERE (`
           } ${_parser[1].replace(/,/g, " LIKE ? OR ")} LIKE ? )`;
-          whereQuery = whereQuery
-            ? `${whereQuery} AND ( ${searchQuery}`
-            : `${whereQuery} ${searchQuery}`;
+          whereQuery = whereQuery ? `${whereQuery} AND ( ${searchQuery}` : `${whereQuery} ${searchQuery}`;
           for (const val of _parser[1].split(",")) {
             params.push(...[`%${_parser[0]}%` /*, `%${_parser[0]}%`*/]);
           }
@@ -334,9 +323,7 @@ module.exports = class Builder {
               whereQuery ? "" : `WHERE (`
             } ${_parser[1].replace(/,/g, " LIKE ? OR ")} LIKE ? )`;
 
-            whereQuery = whereQuery
-              ? `${whereQuery} AND ( ${searchQuery}`
-              : `${whereQuery} ${searchQuery}`;
+            whereQuery = whereQuery ? `${whereQuery} AND ( ${searchQuery}` : `${whereQuery} ${searchQuery}`;
             for (const val of _parser[1].split(",")) {
               params.push(...[`%${_parser[0]}%` /*, `%${_parser[0]}%`*/]);
             }
@@ -356,9 +343,7 @@ module.exports = class Builder {
             " NOT LIKE ? OR "
           )} NOT LIKE ? )`;
           console.log(notlikeQuery);
-          whereQuery = whereQuery
-            ? `${whereQuery} AND ( ${notlikeQuery}`
-            : `${whereQuery} ${notlikeQuery}`;
+          whereQuery = whereQuery ? `${whereQuery} AND ( ${notlikeQuery}` : `${whereQuery} ${notlikeQuery}`;
           for (const val of _parser[1].split(",")) {
             params.push(...[`%${_parser[0]}%` /*, `%${_parser[0]}%`*/]);
           }
@@ -400,9 +385,7 @@ module.exports = class Builder {
         _sort.split(",").map((val) => {
           const value = val.indexOf(".") > -1 ? val.replace(/^-/, "").trim() : `${this.tb}.` + val.replace(/^-/, "").trim();
           if (new RegExp("^-").test(val) == true) {
-            sortQuery = sortQuery
-              ? `${sortQuery}, ${value} DESC`
-              : ` ORDER BY ${value} DESC`;
+            sortQuery = sortQuery ? `${sortQuery}, ${value} DESC` : ` ORDER BY ${value} DESC`;
           } else {
             sortQuery = sortQuery
               ? `${sortQuery}, ${value} ASC`
@@ -492,9 +475,7 @@ module.exports = class Builder {
             const field =
               _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
             whereByKeyQuery =
-              whereByKeyQuery.length > 6
-                ? `${whereByKeyQuery} AND ${field} = ?`
-                : `${whereByKeyQuery} ${field} = ?`;
+              whereByKeyQuery.length > 6 ? `${whereByKeyQuery} AND ${field} = ?` : `${whereByKeyQuery} ${field} = ?`;
             params.push(_fq[1]);
           }
         }
@@ -565,9 +546,7 @@ module.exports = class Builder {
           " LIKE ? OR "
         )} LIKE ?`;
 
-        whereQuery = whereQuery
-          ? `${whereQuery} AND ${searchQuery}`
-          : `${whereQuery} ${searchQuery}`;
+        whereQuery = whereQuery ? `${whereQuery} AND ${searchQuery}` : `${whereQuery} ${searchQuery}`;
         for (const val of _parser[1].split(",")) {
           params.push(...[`%${_parser[0]}%` /*, `%${_parser[0]}%`*/]);
         }
@@ -615,13 +594,9 @@ module.exports = class Builder {
           const value = val.replace(/^-/, "").trim();
 
           if (new RegExp("^-").test(val) == true) {
-            sortQuery = sortQuery
-              ? `${sortQuery}, ${value} DESC`
-              : ` ORDER BY ${value} DESC`;
+            sortQuery = sortQuery ? `${sortQuery}, ${value} DESC` : ` ORDER BY ${value} DESC`;
           } else {
-            sortQuery = sortQuery
-              ? `${sortQuery}, ${value} ASC`
-              : ` ORDER BY ${value} ASC`;
+            sortQuery = sortQuery ? `${sortQuery}, ${value} ASC` : ` ORDER BY ${value} ASC`;
           }
         });
       }

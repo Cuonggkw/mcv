@@ -1665,11 +1665,7 @@ class FormLayout extends React.Component {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Stack spacing={3}>
               <DatePicker
-                minDate={
-                  field.minDate == true
-                    ? new Date()
-                    : new Date().setFullYear(new Date().getFullYear() - 100)
-                }
+                minDate={field.minDate == true ? new Date() : new Date().setFullYear(new Date().getFullYear() - 100)}
                 value={this.state.values[field.key] || ""}
                 inputFormat="dd/MM/yyyy"
                 inputProps={{ placeholder: "dd/MM/yyyy" }}

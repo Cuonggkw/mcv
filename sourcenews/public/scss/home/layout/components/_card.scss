@@ -5,6 +5,10 @@
   flex-direction: column;
   overflow: hidden;
 
+  @media screen and (max-width: 498px) {
+    max-width: 150px;
+  }
+
   .nl-card__img {
     overflow: hidden;
     position: relative;
@@ -68,7 +72,7 @@
 
       @include media-breakpoint-down(md) {
         font-size: $card-title-font-size-MB;
-        height: 40px;
+        // height: 40px;
       }
 
       a {
@@ -324,6 +328,16 @@
         flex: none;
         order: 0;
         flex-grow: 0;
+
+        @media (max-width: 778px){
+          width: 100%;
+          height: auto;
+        }
+
+        @media (max-width: 1199.98px){
+          width: 100%;
+          height: auto;
+        }
       }
     }
   }

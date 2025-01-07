@@ -82,7 +82,7 @@ class Profile extends React.Component{
 				_params.phone = this.state.values.phone ? phone(this.state.values.phoneCode+this.state.values.phone).phoneNumber :'';
 				if (this.state.values.avatar != '' && this.state.values.isChangeAvatar == true) _params.avatar = this.state.values.avatar;
 				this._isMounted&&putApi(process.env.API_USER_URL+'me',_params,_user.accessToken).then(result=>{
-					this._isMounted&&this.setState({status:{...this.state.status,loading:false}});
+					this._isMounted && this.setState({status:{...this.state.status, loading:false}});
 					if(result.data.status == 'success'){
 						this._isMounted&&this.props.setUser({access_token:_user.accessToken,refresh_token:_user.refreshToken,isAuthEmail:this.props.stateUser?.isAuthEmail});
 						this.handleSuccess('Cập nhật thành công');

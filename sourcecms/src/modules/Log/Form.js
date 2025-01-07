@@ -25,37 +25,14 @@ class Form extends React.Component {
 				*/}
         <FormLayout
           getData={{
-            tracker_log: `logs?limit=10000&fq=module:${this.props.stateStatus.formLayout?.module_filter},item_id:${this.props.stateStatus.formLayout?.item_id}`,
+            tracker_log: `logs?limit=10000&fq=module:${this.props.stateStatus.formLayout?.module_filter},
+                          item_id:${this.props.stateStatus.formLayout?.item_id}`,
           }}
           fields={[
-            {
-              key: "module",
-              label: "Module",
-              type: "text",
-              col: "left",
-              readOnly: true,
-            },
-            {
-              key: "type",
-              label: "Type",
-              type: "text",
-              col: "left",
-              readOnly: true,
-            },
-            {
-              key: "detail",
-              label: "Detail",
-              type: "textarea",
-              col: "left",
-              readOnly: true,
-            },
-            {
-              key: "tracker_log",
-              label: "",
-              type: "timelinelog",
-              defaultValue: true,
-              col: "right",
-            },
+            { key: "module", label: "Module", type: "text", col: "left", readOnly: true },
+            { key: "type", label: "Type", type: "text", col: "left", readOnly: true },
+            { key: "detail", label: "Detail", type: "textarea", col: "left", readOnly: true },
+            { key: "tracker_log", label: "", type: "timelinelog", defaultValue: true, col: "right" },
           ]}
         />
       </>

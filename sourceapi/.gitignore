@@ -8,6 +8,7 @@ _next
 
 # Remove ENV Config
 .env.production
+.env.development
 
 # Remove Editor
 .DS_Store

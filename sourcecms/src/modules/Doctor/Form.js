@@ -18,38 +18,45 @@ class Form extends React.Component {
     return (
       <>
         {/* TYPE : text,status,radio,select,select_multi,image,video,textarea,autoComplete (multiple:true),password,dateTime
-          col:'left', col:'right'
-          hideColRight={true} -- ẩn cột phải
-        */}
+					col:'left', col:'right'
+					hideColRight={true} -- ẩn cột phải
+				*/}
         <FormLayout
-          // getData={{ category_id: "categories?limit=10000&fqnull=deleted_at", tag_id: "tags?limit=10000&fqnull=deleted_at" }}
+          getData={{ specialty_id: "specialties?limit=10000&fqnull=deleted_at", clinic_id: "clinics?limit=10000&fqnull=deleted_at"}}
           fields={[
             {
-              key: "full_name",
+              key: "name",
               label: "Họ và tên",
               type: "text",
               col: "left",
               isRequied: true,
             },
-          
             {
-              key: "email",
-              label: "Email",
-              type: "text",
+              key: "avatar",
+              label: "Ảnh",
+              type: "image",
+              cdn: process.env.API_URL + "/",
               col: "left",
               isRequied: true,
             }, 
             {
-              key: "phone_number",
-              label: "Số điện thoại",
-              type: "number",
+              key: "specialty_id",
+              label: "Khoa",
+              type: "select",
+              defaultValue: true,
+              col: "left",
+            },
+            {
+              key: "province",
+              label: "Địa chỉ",
+              type: "text",
               col: "left",
               isRequied: true,
             },
             {
-              key: "note",
-              label: "Ghi chú",
-              type: "text",
+              key: "clinic_id",
+              label: "Nhãn",
+              type: "select",
               defaultValue: true,
               col: "left",
             },

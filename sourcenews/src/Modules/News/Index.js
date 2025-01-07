@@ -82,7 +82,7 @@ export default class extends React.Component {
                 <div className="sl-section__content swpBtn-center">
                   <div className="row">
                     {this.state.dataPage.map((item) => (
-                      <div key={item.id} className="col-lg-4 col-md-4 col-sm-6">
+                      <div key={item.id} className="col-lg-4 col-md-4 col-sm-6 col-mobile">
                         <Card
                           title={item.title}
                           image={item.image_url != null ? `${process.env.CDN_URL_S3}/${item.image_url}` : ``}

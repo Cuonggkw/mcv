@@ -139,29 +139,12 @@ class Detail extends React.Component {
                         </div>
                         <div className="infor_title">
                           <div className="infor_header">Thông tin chung</div>
-                          <div className="container-item-desc">
-                            Bệnh tim mạch là các tình trạng liên quan đến sức khỏe của trái tim, sự hoạt động của các mạch máu gây suy yếu khả năng làm việc của tim. Hệ quả là làm gián đoạn hoặc không cung cấp đủ oxy đến não và các bộ phận khác trong cơ thể, khiến các cơ quan ngừng trệ hoạt động, dẫn đến tử vong. Các bệnh tim mạch bao gồm: các bệnh mạch máu như bệnh động mạch vành, bệnh cơ tim, nhồi máu cơ tim, loạn nhịp tim và suy tim.<br/>
-                            Theo cố vấn chuyên môn Khoa tim mạch tại Phòng Khám Đa Khoa Quốc Tế An Đạt, có rất nhiều nguyên nhân dẫn tới bệnh tim mạch, trong đó thường gặp nhất là tăng huyết áp, phổi tắc nghẽn mạn tính, di truyền… Ngoài ra, nguyên nhân khiến đối tượng mắc bệnh tim mạch ngày càng trẻ hóa là do chế độ ăn uống không khoa học như ăn thực phẩm chế biến sẵn nhiều dầu mỡ, ăn nhiều chất béo no; sử dụng thuốc lá, bia rượu, nước uống có gas, stress; lười vận động… gây ra tình trạng béo phì, tăng huyết áp, rối loạn mỡ máu, đái tháo đường… và cuối cùng dẫn tới các biến chứng tim mạch.
-                          </div>
+                          <div dangerouslySetInnerHTML={{__html: _data.content}}></div>
                         </div>
                         <div className="menu"><img className="chedo" alt="" src="/images/che-do.png" /></div>
-                        <div className="content_obj">
-                          <div className="infor_header">Đối tượng</div>
-                          <p className="obj_title">Bệnh lý tim mạch là nguyên nhân hàng đầu gây tử vong trên toàn thế giới. Theo ước tính của Tổ chức Y tế Thế giới (WHO), hàng năm trên thế giới có khoảng 17,5 triệu người tử vong do các bệnh liên quan đến tim mạch và số bệnh nhân tim mạch vẫn đang ngày càng gia tăng. Ở nước ta, hiện chưa có thống kê đầy đủ về tỷ lệ mắc bệnh tim mạch trong cộng đồng, nhưng thực tế bệnh tim mạch gia tăng hàng năm rất nhanh chóng. Hiện có khoảng 20% dân số mắc bệnh về tim mạch và tăng huyết áp. Mỗi năm có khoảng 200.000 người tử vong vì bệnh tim mạch, chiếm 33% ca tử vong.
-                          Nếu đang gặp vấn đề về sức khỏe tim mạch hay thuộc một trong các nhóm đối tượng có nguy cơ mắc phải căn bệnh này dưới đây, bạn cần có chế độ dinh dưỡng hợp lý ngay từ hôm nay:<br/>
-                          1. Người bị tăng huyết áp;<br/>
-                          2. Người có lượng cholesterol trong máu cao;<br/>
-                          3. Người bị đái tháo đường;<br/>
-                          4. Người thừa cân – béo phì;<br/>
-                          5. Người hút thuốc lá nhiều và lâu năm;<br/>
-                          6. Người lười/ít vận động, đặc biệt là những người làm công việc có đặc tính ngồi nhiều, hạn chế đi lại;<br/>
-                          7. Người có bố mẹ hoặc anh chị em ruột mắc bệnh tim mạch.</p>
-                        </div>
-                        
+
                         <Datlich />
-                        <div className="line_1"></div>
                         <Tags data={this.state.dataPage} tag_id/>
-                        <div className="line_1"></div>
                       </div>
                       <div className="container-item-2">
                         <div className="container_service">
@@ -223,7 +206,6 @@ class Detail extends React.Component {
                           <img alt="" src="/images/phu-khoa.png" />
                         </div>
                       </div>
-                      {/* <div className="container-item-r">hello</div> */}
                     </div>
                     <div className="container-card">
                       <div className="outstanding_header">

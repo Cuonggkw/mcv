@@ -45,30 +45,23 @@ class Footer extends React.Component {
                 <svg className="email_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zm0 48v40.8c-22.4 18.3-58.2 46.7-134.6 106.5-16.8 13.2-50.2 45.1-73.4 44.7-23.2 .4-56.6-31.5-73.4-44.7C106.2 199.5 70.4 171.1 48 152.8V112h416zM48 400V214.4c22.9 18.3 55.4 43.9 104.9 82.6 21.9 17.2 60.1 55.2 103.1 55 42.7 .2 80.5-37.2 103.1-54.9 49.5-38.8 82-64.4 104.9-82.7V400H48z"/></svg>
                 <p className="email_text">Email: contact@andatclinic.com</p>
                 </div>
-              {/* <div className="row">
-                <div className="col-lg-6">
-                  <div className="test">djbjdfgdfug</div>
-                </div>
-
-                <div className="col-lg-6">
-                  <div className="row">
-                    <div className="col-md-4">
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </div>
 
             <div className="nl-footer__bottom">
-            <p className="bottom_title">Hỗ trợ khách hàng</p>
-            <div className="bottom_text">Liên hệ</div>
-            <div className="bottom_text">Giới thiệu</div>
-            <div className="bottom_text">Tuyển dụng</div>
-            <div className="bottom_text">Chính sách bảo mật</div>
-            <div className="bottom_text">Điều khoản dịch vụ</div>
-            {/* <p className="text-center">
-                Copyright © 2023 MCV Group Corporation. All Rights Reserved.
-            </p> */}
+              <p className="bottom_title">Danh sách dịch vụ</p>
+              <div className="bottom_text">Khám sức khoẻ tổng quát</div>
+              <div className="bottom_text">Khám sức khoẻ lái xe</div>
+              <div className="bottom_text">Tầm soát ung thư</div>
+              <div className="bottom_text">Dịch vụ da liễu</div>
+            </div>
+
+            <div className="nl-footer__bottom">
+              <p className="bottom_title">Hỗ trợ khách hàng</p>
+              <div className="bottom_text">Liên hệ</div>
+              <div className="bottom_text">Giới thiệu</div>
+              <div className="bottom_text">Tuyển dụng</div>
+              <div className="bottom_text">Chính sách bảo mật</div>
+              <div className="bottom_text">Điều khoản dịch vụ</div>
             </div>
           </div>
           <div className="footer_bottom">

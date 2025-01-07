@@ -23,25 +23,26 @@ class List extends React.Component {
     return (
       <React.Fragment>
         {/*  
-					maxWidthPopup: xl,lg,md,sm,xs
-					isBtnAdd={true} -- Nút thêm
-					search={true} -- tìm kiếm
-					export={true} -- xuất dữ liệu
-					isBtnFilter={true} -- bộ lọc
-					hideAction={true} -- List ẩn hành động
-					data -- các trường trong update/add
-				*/}
+          maxWidthPopup: xl,lg,md,sm,xs
+          isBtnAdd={true} -- Nút thêm
+          search={true} -- tìm kiếm
+          export={true} -- xuất dữ liệu
+          isBtnFilter={true} -- bộ lọc
+          hideAction={true} -- List ẩn hành động
+          data -- các trường trong update/add
+        */}
         <ListLayout
-          nameDisplay={"Quản lý người dùng"}
+          nameDisplay={"Quản lý bác sĩ"}
           isBtnAdd={true}
           search={true}
-          search_fields = {"email"}
+          search_fields = {"name"}
           // isBtnFilter={true}
           maxWidthPopup="lg"
           columns={[
-            { key: "email", label: "Email", type: "text" },
-            { key: "role_name", label: "Vai trò", type: "text" },
-            // { key: "avatar", label: "Avatar", type: "image", cdn: process.env.API_URL + "/" },
+            { key: "name", label: "Họ và tên", type: "text" },
+            { key: "avatar", label: "Ảnh", type: "image", cdn: process.env.API_URL + "/" },
+            { key: "specialties_name", label: "Chuyên khoa", type: "text" },
+            { key: "province", label: "Địa chỉ", type: "text" },
             { key: "status", label: "Trạng thái", type: "status", width: 120 },
             { key: "created_at", label: "Ngày tạo", type: "dateTime", width: 120 },
           ]}

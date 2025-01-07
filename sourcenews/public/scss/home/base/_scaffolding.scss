@@ -13,7 +13,7 @@ div[class^="Mui"],
 label[class^="Mui"],
 span[class^="Mui"] {
   font-family: $font-family-base !important;
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.15;
   color: #212529;
 }
@@ -155,7 +155,7 @@ body[style^="padding-right"] {
   }
 
   @media (min-width: 1200px) {
-    max-width: 100%;
+    // max-width: 100%;
     padding: 0 96px;
   }
 
@@ -190,7 +190,7 @@ body[style^="padding-right"] {
   @include transition(all 0.2s linear);
 
   @include media-breakpoint-down(lg) {
-    padding-top: $header-height-mb;
+    // padding-top: 20px;
     padding-bottom: $navMobile-height;
 
     &.ovh {
@@ -213,8 +213,8 @@ body[style^="padding-right"] {
   max-width: 100%;
   margin: auto;
 
-  @media (min-width: 1440px) {
-    max-width: 1440px;
+  @media (max-width: 778px) {
+    width: 100%;
   }
 }
 
@@ -285,18 +285,6 @@ body[style^="padding-right"] {
       a {
         color: $slSection-header-title-color;
         font-size: $slSection-header-title-size;
-
-        // p{
-        // 	text-transform: lowercase;
-
-        // 	&::first-letter{
-        // 		text-transform: capitalize;
-        // 	}
-
-        // 	&::first-line{
-        // 		text-transform: capitalize;
-        // 	}
-        // }
 
         @include media-breakpoint-down(xxl) {
           font-size: 2.5rem;

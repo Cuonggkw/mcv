@@ -18,7 +18,7 @@ class Form extends React.Component {
     return (
       <>
         {/* TYPE : text,status,radio,select,select_multi,image,video,textarea,autoComplete (multiple:true),password,dateTime
-					col:'left', col:'right'
+					col:'left', col:'right',editor
 					hideColRight={true} -- ẩn cột phải
 				*/}
         <FormLayout
@@ -31,7 +31,13 @@ class Form extends React.Component {
               col: "left",
               isRequied: true,
             },
-          
+            {
+              key: "content",
+              label: "Nội dung",
+              type: "editor",
+              col: "left",
+              isRequied: true,
+            },
             {
               key: "image_url",
               label: "Ảnh",
