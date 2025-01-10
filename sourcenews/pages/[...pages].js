@@ -8,24 +8,17 @@ import Router from "next/router";
 /* Package Application */
 import { parseCookie } from "@helpers/Common";
 const NestedLayout = DynamicImport(() =>
-  import(
-    /*webpackChunkName:"user.layout"*/ "@modules/User/Components/NestedLayout"
-  )
+  import(/*webpackChunkName:"user.layout"*/ "@modules/User/Components/NestedLayout")
 );
 const NestedBanner = DynamicImport(() =>
-  import(
-    /*webpackChunkName:"banner.layout"*/ "@views/Default/Components/NestedBanner"
-  )
+  import(/*webpackChunkName:"banner.layout"*/ "@views/Default/Components/NestedBanner")
 );
 
 export async function getServerSideProps(ctx) {
   let _params = {};
-  let _route =
-    typeof ctx.params.pages[0] !== "undefined" ? ctx.params.pages[0] : "";
-  let _slug =
-    typeof ctx.params.pages[1] !== "undefined" ? ctx.params.pages[1] : "";
-  let _id =
-    typeof ctx.params.pages[2] !== "undefined" ? ctx.params.pages[2] : "";
+  let _route = typeof ctx.params.pages[0] !== "undefined" ? ctx.params.pages[0] : "";
+  let _slug = typeof ctx.params.pages[1] !== "undefined" ? ctx.params.pages[1] : "";
+  let _id = typeof ctx.params.pages[2] !== "undefined" ? ctx.params.pages[2] : "";
   if (typeof ctx.req.headers !== "undefined" && ctx.req.headers.cookie) {
     let _cookie = parseCookie(ctx.req.headers.cookie);
     if (!_cookie["refreshToken"] && !_cookie["accessToken"]) {
@@ -64,13 +57,16 @@ export default class extends React.Component {
     let { route, slug, id } = this.props;
     switch (route) {
       case "homepage":
-        PageComponent = DynamicImport(() =>
-          import(/*webpackChunkName:"homepage"*/ "@modules/Home/Index")
+        PageComponent = DynamicImport(() => import(/*webpackChunkName:"homepage"*/ "@modules/Home/Index")
         );
         PageComponent.getLayout = NestedBanner;
         break;
       case "news":
         PageComponent = DynamicImport(() => import(/*webpackChunkName:"homepage"*/ "@modules/News/Index"));
+        PageComponent.getLayout = NestedBanner;
+        break;
+      case "doctors":
+        PageComponent = DynamicImport(() => import(/*webpackChunkName:"homepage"*/ "@modules/Doctors/Index"));
         PageComponent.getLayout = NestedBanner;
         break;
       case "privacy":

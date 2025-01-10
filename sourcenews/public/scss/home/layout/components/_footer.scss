@@ -361,10 +361,18 @@
   .footer_bottom{
     width: 100%;
     max-width: 100%;
-    padding: 0 20px;
+    padding: 0 360px;
     display: flex;
     flex-direction: column;
     gap: 24px;
+
+    @media screen and (max-width: 779px) {
+      padding: 0 20px;
+    }
+
+    @media (max-width: 1199.98px) {
+      padding: 0 20px;
+    }
 
     .line{
       width: 100%;

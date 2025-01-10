@@ -12,9 +12,7 @@ module.exports = (method) => {
 
   switch (method) {
     case "create":
-      _validation = [
-        check("name").not().isEmpty().withMessage("Trường name là bắt buộc"),
-      ];
+      _validation = [check("name").not().isEmpty().withMessage("Trường name là bắt buộc")];
       break;
     case "update":
       _validation = [check("id", "Trường Id là bắt buộc").not().isEmpty()];

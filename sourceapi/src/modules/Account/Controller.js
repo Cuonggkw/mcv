@@ -49,9 +49,7 @@ module.exports = class extends Controller {
       email = req.body.email;
       _conditions.fq = `email:${formatEmail(req.body.email)}`;
 
-      this.db
-        .get(_conditions, true)
-        .then((data) => {
+      this.db.get(_conditions, true).then((data) => {
           if (data) {
             if (data.status === 2) {
               reject("Tài khoản của bạn đã bị khóa");
@@ -75,9 +73,7 @@ module.exports = class extends Controller {
       const _conditions = {};
       // email = req.body.email;
       _conditions.fq = `id: ${req.params.id}`;
-      this.db
-        .get(_conditions, true)
-        .then((result) => {
+      this.db.get(_conditions, true).then((result) => {
           if (result) {
             if (req.body.oldPassword === val) {
               reject("Mật khẩu mới không được trùng với mật khẩu cũ");
@@ -130,10 +126,7 @@ module.exports = class extends Controller {
         _data.updated_at = new Date();
         if (_data.password && _data.password != "")
           // bug
-          _data.password = bcrypt.hashSync(
-            _data.password,
-            bcrypt.genSaltSync(12)
-          );
+          _data.password = bcrypt.hashSync(_data.password, bcrypt.genSaltSync(12));
         if (_data.password == "") delete _data.password;
 
         this.db.update({ id: req.params.id }, _data);
@@ -153,25 +146,17 @@ module.exports = class extends Controller {
         const { email, password, remember } = req.body;
         // console.log(bcrypt.hashSync("123456", bcrypt.genSaltSync(12)));
 
-        if (
-          bcrypt.compareSync(password, req.account.password) &&
-          email === req.account.email
-        ) {
+        if (bcrypt.compareSync(password, req.account.password) && email === req.account.email) {
           const _account = req.account;
           const _refresh_token = nanoid();
-          const _expires =
-            remember && remember == true
-              ? Date.now() + 30 * 86400 * 1000
-              : Date.now() + 86400 * 1000;
+          const _expires = remember && remember == true ? Date.now() + 30 * 86400 * 1000 : Date.now() + 86400 * 1000;
 
           _account.access_token = jwt.sign(
             { id: _account.id, role_id: _account?.role_id ?? "" },
             process.env.SECRET_KEY,
             { expiresIn: 30 * 60 }
           );
-          _account.refresh_token = req.account?.refresh_token
-            ? req.account?.refresh_token
-            : _refresh_token;
+          _account.refresh_token = req.account?.refresh_token ? req.account?.refresh_token : _refresh_token;
           _account.expires = _expires;
           _account.token_type = "Bearer";
           delete _account.password;
@@ -193,8 +178,7 @@ module.exports = class extends Controller {
             _account.id,
             _account.role_id
           );
-          _account.is_admin =
-            _account.id == process.env.ADMIN_ID ? true : false;
+          _account.is_admin = _account.id == process.env.ADMIN_ID ? true : false;
           // Add login log
           this.dbLog.insert({
             account_id: _account.id,
@@ -232,12 +216,9 @@ module.exports = class extends Controller {
           { expiresIn: 30 * 60 }
         );
 
-        const _time =
-          86400000 -
-          (new Date(req.account.token_expires * 1000).getTime() - Date.now());
+        const _time = 86400000 - (new Date(req.account.token_expires * 1000).getTime() - Date.now());
 
-        const _expires =
-          new Date(req.account.token_expires * 1000).getTime() + _time;
+        const _expires = new Date(req.account.token_expires * 1000).getTime() + _time;
 
         const _dataUpdate = {
           token_expires: _expires,
@@ -301,10 +282,7 @@ module.exports = class extends Controller {
         if (_data?.newPassword) {
           if (!bcrypt.compareSync(_data.oldPassword, _account.password))
             return this.response(res, 400, "Mật khẩu cũ của bạn không đúng");
-          _data.password = bcrypt.hashSync(
-            _data.newPassword,
-            bcrypt.genSaltSync(12)
-          );
+          _data.password = bcrypt.hashSync(_data.newPassword, bcrypt.genSaltSync(12));
         }
         if (_data?.avatar) {
           try {

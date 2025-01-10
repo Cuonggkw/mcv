@@ -96,10 +96,7 @@ module.exports = class Controller {
       case 500:
         _obj.status = "error";
         _obj.errors = {};
-        _obj.errors.msg =
-          process.env.NODE_ENV == "production"
-            ? "Server Error, Please try again later."
-            : data;
+        _obj.errors.msg = process.env.NODE_ENV == "production" ? "Server Error, Please try again later." : data;
         break;
       default:
         _obj.status = "success";

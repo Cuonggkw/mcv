@@ -52,7 +52,7 @@ module.exports = class Action{
 				dispatch({type:ActionTypes.SET_USER,payload:{value:value}});
 			}
 			else if(value.access_token){
-				fetchApi(process.env.API_USER_URL+'me',value.access_token).then(result=>{
+				fetchApi(process.env.API_USER_URL + 'me',value.access_token).then(result=>{
 					if(result.data.status=='success'){
 						let _result = result.data.result;
 						if(value?.isAuthEmail)_result.isAuthEmail = value.isAuthEmail;

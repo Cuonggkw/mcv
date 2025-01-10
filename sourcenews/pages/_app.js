@@ -19,7 +19,6 @@ import '@public/css/animate.min.css';
 
 const getOrInitializeStore=initialState=>{
 	let reduxStore;
-
 	if(typeof window==="undefined"){
 		return initStore(initialState);
 	}
@@ -68,12 +67,11 @@ export default class extends App{
 		}
 
 		//Fetch Data
-		return {data:_data,openApp:_openApp,auth:_auth};
+		return {data:_data, openApp:_openApp, auth:_auth};
 	}
 
 	render(){
-		const {Component,pageProps,data,openApp,auth} = this.props;
-
+		const {Component, pageProps, data, openApp, auth} = this.props;
 		return(
 			<Provider store={this.reduxStore}>
 				<Layout data={data} openApp={openApp} auth={auth}>

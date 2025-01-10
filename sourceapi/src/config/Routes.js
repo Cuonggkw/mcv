@@ -44,40 +44,30 @@ fs.readdirSync(path.join(__dirname, "../modules")).map((module) => {
 
     // CRUD
     if (_ignore.includes(_router) == false) {
-      router
-        .route(`/${_router}`)
-        .get(isAccountCMSAuth, (req, res) => {
+      router.route(`/${_router}`).get(isAccountCMSAuth, (req, res) => {
           _Function[trimSlash(req.route.path)].getAll(req, res);
         })
         .post(
           isAccountCMSAuth,
-          _Validator[_router] && _Validator[_router]("create")
-            ? _Validator[_router]("create")
-            : (req, res, next) => next(),
+          _Validator[_router] && _Validator[_router]("create") ? _Validator[_router]("create") : (req, res, next) => next(),
           (req, res) => {
             _Function[trimSlash(req.route.path)].create(req, res);
           }
         )
         .put(
           isAccountCMSAuth,
-          _Validator[_router] && _Validator[_router]("updates")
-            ? _Validator[_router]("updates")
-            : (req, res, next) => next(),
+          _Validator[_router] && _Validator[_router]("updates") ? _Validator[_router]("updates") : (req, res, next) => next(),
           (req, res) => {
             _Function[trimSlash(req.route.path)].updates(req, res);
           }
         );
 
-      router
-        .route(`/${_router}/:id`)
-        .get(isAccountCMSAuth, (req, res) => {
+      router.route(`/${_router}/:id`).get(isAccountCMSAuth, (req, res) => {
           _Function[trimSlash(req.route.path)].get(req, res);
         })
         .put(
           isAccountCMSAuth,
-          _Validator[_router] && _Validator[_router]("update")
-            ? _Validator[_router]("update")
-            : (req, res, next) => next(),
+          _Validator[_router] && _Validator[_router]("update") ? _Validator[_router]("update") : (req, res, next) => next(),
           (req, res) => {
             _Function[trimSlash(req.route.path)].update(req, res);
           }
@@ -95,6 +85,7 @@ fs.readdirSync(path.join(__dirname, "../modules")).map((module) => {
 router.route("/set-log").post((req, res) => {_Function.logs.create(req, res);});
 
 router.route("/news-all").get((req, res) => {_Function.news.getAll(req, res);});
+router.route("/doctor-all").get((req, res) => {_Function.doctors.getAll(req, res);});
 router.route('/get-category').get((req, res) => { _Function.categories.getAll(req, res); });
 router.route('/get-doctor').get((req, res) => { _Function.doctor_infor.getAll(req, res); });
 router.route('/get-tags').get((req, res) => { _Function.tags.getAll(req, res); });

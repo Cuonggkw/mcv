@@ -45,11 +45,7 @@ module.exports = class Builder {
         return true;
       }
     } catch (e) {
-      console.log(
-        `Error while inserting data to table ${
-          this.tb
-        } - Error: ${JSON.stringify(e)}`
-      );
+      console.log(`Error while inserting data to table ${this.tb} - Error: ${JSON.stringify(e)}`);
       throw new Error(e.message);
     }
   }
@@ -84,7 +80,6 @@ module.exports = class Builder {
         SET ${updateValueQuery}
         WHERE ${conditionQuery};
       `;
-      // console.log("rawUpdateQuery: ", rawUpdateQuery);
       if (this.tb !== TABLELOGS && setlog)
         await this.setlog(UPDATE, this.tb, data.id, { ...data }).catch(
           (e) => ""
@@ -302,7 +297,6 @@ module.exports = class Builder {
       }
 
       if (_search != "") {
-        console.log(_search);
         if (Array.isArray(_search) == false) {
           let _parser = _search.split("|");
           if (_parser[1].indexOf(".") === -1)
@@ -442,11 +436,7 @@ module.exports = class Builder {
       }
       if (joinQueries && joinQueries.length > 0) {
         for (const joinQuery of joinQueries) {
-          if (
-            joinQuery?.fieldTarget &&
-            joinQuery?.table &&
-            joinQuery?.fieldJoin
-          ) {
+          if (joinQuery?.fieldTarget && joinQuery?.table && joinQuery?.fieldJoin) {
             rawQuery += `LEFT JOIN ${joinQuery.table} ON ${joinQuery.table}.${joinQuery.fieldTarget} = ${this.tb}.${joinQuery.fieldJoin} `;
           }
           if (joinQuery?.filter) {
@@ -487,8 +477,7 @@ module.exports = class Builder {
         let _fq = _whereIn.split(":").map((v) => v);
 
         if (_fq.length == 2) {
-          const field =
-            _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
+          const field = _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
           whereIn = whereIn + field + ` IN (?)`;
           params.push(_fq[1].split(","));
         }
@@ -498,8 +487,7 @@ module.exports = class Builder {
       if (_whereRange != "") {
         _whereRange.split(",").map((val) => {
           const _fq = val.split(":").map((v) => v);
-          const field =
-            _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
+          const field = _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
           if (_fq.length == 2) {
             const _parse = _fq[1].match(/^(gte|gt|lte|lt)/gi);
             if (_parse != null) {
@@ -521,8 +509,7 @@ module.exports = class Builder {
             .replace(":", "&")
             .split("&")
             .map((v) => v);
-          const field =
-            _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
+          const field = _fq[0].indexOf(".") == -1 ? `${this.tb}.` + _fq[0] : _fq[0];
           if (_fq.length == 2) {
             const _parse = _fq[1].match(/^(gte|gt|lte|lt)/gi);
             if (_parse != null) {

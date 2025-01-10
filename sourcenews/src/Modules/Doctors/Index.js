@@ -7,7 +7,6 @@ import AcUnitIcon from "@mui/icons-material/AcUnit";
 import Header from "@views/Default/Components/Header";
 import { withRouter } from "next/router";
 import { Pagination, Stack } from "@mui/material";
-import Doctors from "../../Modules/Doctors/Index";
 
 /* Package Application */
 import Card from "@views/Default/Components/Card";
@@ -46,7 +45,7 @@ export default class extends React.Component {
 
   getData = () => {
     try {
-      this._isMounted && fetchApi(process.env.API_URL + `news-all?limit=${this.state.limit}&offset=${(this.state.page - 1)*this.state.limit}&fqnull=deleted_at`).then((result) => this._isMounted && this.setState({
+      this._isMounted && fetchApi(process.env.API_URL + `doctor-all?limit=${this.state.limit}&offset=${(this.state.page - 1)*this.state.limit}&fqnull=deleted_at`).then((result) => this._isMounted && this.setState({
         dataPage: result.data.data,
         total: result.data.total
       })).catch((e) => console.log(e));
@@ -62,35 +61,27 @@ export default class extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="sl-section">
-          <div className="ractangle">
-            <div className="ractangle_img">
-              <img src="/images/new/header.png"/>
-            </div>
-            <div className="ractangle_title">
-              <div className="ractangle_title-header">
-              MCV S&E ký kết hợp tác truyền thông chiến lược với GIGA Digital
-              </div>
-              <div className="ractangle_title-time">21:20 - 23/08/2022</div>
-              <div className="ractangle_title-content">Vào ngày 13/10, Công ty Cổ phần Thể thao và Giải trí MCV (MCV S&E) và Công ty TNHH GIGA Distribution (GIGA Digital) đã chính thức ký kết hợp tác chiến lược.
-              Hai đơn vị cùng hướng tới mục tiêu mang đến những giá trị thiết thực trong lĩnh lực truyền thông trên nền tảng truyền thông số, nâng tầm độ nhận diện thương hiệu trên thị trường.</div>
-            </div>
-          </div>
-        </div>
           {this.state.dataPage && this.state.dataPage.length > 0 && (
             <section className="sl-section">
+              <div className="service">
+                <div className="title-component">
+                  <h3>Đội ngũ bác sĩ</h3>
+                  <div className="border-title"></div>
+                </div>
+                <p className="service_infor">Đội ngũ bác sĩ tại phòng khám An Đạt là những chuyên gia uy tín, tận tâm và có kinh nghiệm. Với kiến thức sâu rộng và tay nghề xuất sắc, họ cam kết mang lại chăm sóc y tế hàng đầu cho mọi bệnh nhân.</p>
+              </div>
               <div className="container">
                 <div className="sl-section__content swpBtn-center">
                   <div className="row">
                     {this.state.dataPage.map((item) => (
                       <div key={item.id} className="col-lg-4 col-md-4 col-sm-6 col-mobile">
                         <Card
-                          title={item.title}
-                          image={item.image_url != null ? `${process.env.CDN_URL_S3}/${item.image_url}` : ``}
+                          title={item.name}
+                          image={item.avatar != null ? `${process.env.CDN_URL_S3}/${item.avatar}` : ``}
                           backgroundBody="gray"
                           date={item.created_at}
                           onClickValue={item.id}
-                          link={"tin-tuc/" + item.slug}
+                          // link={"tin-tuc/" + item.slug}
                         />
                       </div>
                     ))}
@@ -118,7 +109,6 @@ export default class extends React.Component {
               </div>
             </section>
           )}
-          <Doctors />
       </React.Fragment>
     );
   }

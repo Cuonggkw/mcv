@@ -11,6 +11,7 @@ import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import Action from "@libs/Action";
 import Head from "@views/Default/Components/Head";
 import News from "../../Modules/News/Index";
+import Doctors from "../../Modules/Doctors/Index";
 import Header from "@views/Default/Components/Header";
 import Footer from "@views/Default/Components/Footer";
 import NavigatorMobile from "@views/Default/Components/NavigatorMobile";
@@ -40,19 +41,14 @@ class Layout extends React.Component {
     let isAuthEmail = true;
     if (renew == false) {
       if (_user && isPhoneNumber(_user)) isAuthEmail = false;
-      fetchApi(
-        process.env.API_USER_URL + "me",
-        this.props?.auth?.["accessToken"]
-      )
-        .then((result) => {
-          if (result.data.status == "success") {
-            let _result = result.data.result;
-            _result.access_token = this.props.auth["accessToken"];
-            _result.refresh_token = this.props.auth?.["refreshToken"];
-            this.props.setUser({ ..._result, isAuthEmail });
-          } else this.refreshToken(true);
-        })
-        .catch((e) => this.refreshToken(true));
+      fetchApi(process.env.API_USER_URL + "me", this.props?.auth?.["accessToken"]).then((result) => {
+        if (result.data.status == "success") {
+          let _result = result.data.result;
+          _result.access_token = this.props.auth["accessToken"];
+          _result.refresh_token = this.props.auth?.["refreshToken"];
+          this.props.setUser({ ..._result, isAuthEmail });
+        } else this.refreshToken(true);
+      }).catch((e) => this.refreshToken(true));
     }
     if (renew == true) {
       let _params = {
@@ -79,10 +75,7 @@ class Layout extends React.Component {
         });
     }
     if (renewTimeout != null) clearTimeout(renewTimeout);
-    renewTimeout = setTimeout(
-      () => this.refreshToken(true, username, refresh_token),
-      25 * 60 * 1000
-    );
+    renewTimeout = setTimeout(() => this.refreshToken(true, username, refresh_token), 25 * 60 * 1000);
     console.log("End refresh token.....", renewTimeout);
   };
 
@@ -99,10 +92,7 @@ class Layout extends React.Component {
       let _statusDarkMode = JSON.parse(localStorage.getItem("darkMode"));
       this.props.setDarkMode(_statusDarkMode);
     } else {
-      if (
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      ) {
+      if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
         this.props.setDarkMode(true);
       } else {
         this.props.setDarkMode(false);
@@ -110,11 +100,7 @@ class Layout extends React.Component {
     }
     if (this.props?.auth?.["accessToken"]) this.refreshToken(false);
     else if (this.props?.auth?.["refreshToken"])
-      this.refreshToken(
-        true,
-        this.props?.auth?.["username"],
-        this.props?.auth?.["refreshToken"]
-      );
+      this.refreshToken(true, this.props?.auth?.["username"], this.props?.auth?.["refreshToken"]);
     else this.handleLogOut();
   }
   componentWillUnmount() {
@@ -134,13 +120,11 @@ class Layout extends React.Component {
 
     return this.props.openApp == "" ? (
       <React.Fragment>
-        	<Head data={this.props.data} router={this.props.router} />
+        	{/* <Head data={this.props.data} router={this.props.router} /> */}
         <div id="nl-wrapper">
           <Header renewTimeout={renewTimeout} renewToken={this.refreshToken} />
           {this.props.children}
-      
           <Footer />
-
           <NavigatorMobile />
         </div>
       </React.Fragment>

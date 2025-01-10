@@ -903,9 +903,10 @@ body {
   }
 
   @media (max-width: 779px) {
-    // max-width: 1200px;
+    display: grid;
+    grid-template-columns: 170px 0 ;
     min-height: auto;
-    gap: 10px;
+    grid-gap: 10px;
   }
 }
 
@@ -927,6 +928,10 @@ body {
   line-height: 24px;
   letter-spacing: 0.25px;
   color: #0E1013;
+
+  @media screen and (max-width: 778px) {
+   width: 140px;
+  }
 }
 
 .cartTinTuc {
@@ -937,7 +942,9 @@ body {
   gap: 12px;
 
   @media (max-width: 779px) {
-   align-items: center;
+    width: 170px;
+    align-items: center;
+    margin-bottom: 20px;
   }
 }
 
@@ -1000,11 +1007,6 @@ body {
 
   @media screen and (max-width: 778px) {
      display: none;
-    // width: 100%;
-    // max-width: 100%;
-    // gap: 10px;
-    // padding: 0 10px;
-    // margin-bottom: 20px;
   }
 
     @media (max-width: 1199.98px) {
@@ -1013,7 +1015,7 @@ body {
 }
 
 .ractangle_img{
-  width: 779px;
+  width: 790px;
   height: 522px;
 
   @media screen and (max-width: 778px) {
@@ -1028,7 +1030,7 @@ body {
 }
 
 .ractangle_img img {
-  width: 779px;
+  width: 790px;
   height: 522px;
 
   @media screen and (max-width: 778px) {
@@ -1138,3 +1140,40 @@ fieldset{
   }
 }
  
+
+.service{
+  max-width: 784px;
+  text-align: center;
+  margin: 0 auto;
+
+  .title-component{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media screen and (max-width: 779px) {
+      margin-top: 50px;
+    } 
+
+    h3{
+      font-size: 40px;
+      color: #CB0000 !important;
+      font-family: Roboto;
+    }
+
+    .border-title{
+      width: 32px;
+      height: 6px;
+      border-radius: 6px;
+      background-color: #CB0000;
+      margin: 16px 0;
+    }
+  }
+
+  .service_infor{
+    margin: 0 8px;
+    margin-bottom: 48px;
+    font-size: 16px;
+    color: #5F6368;
+  }
+}
